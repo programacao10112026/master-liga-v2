@@ -511,14 +511,28 @@ tr:last-child td{border:0}
       <button class="btn sm" onclick="openOfferModal()">⇄ Propor Negócio</button>
      </div>
     </div>
-    <div class="searchbar"><span>⌕</span><input id="playerSearch" type="search" placeholder="Buscar atleta por nome, clube ou posição..." autocomplete="off" aria-label="Buscar atletas"></div>
+    <div style="display:grid;grid-template-columns:1fr auto;gap:8px;margin-bottom:12px">
+     <div class="searchbar" style="margin:0"><span>⌕</span><input id="playerSearch" type="search" placeholder="Buscar atleta por nome ou posição..." autocomplete="off" aria-label="Buscar atletas"></div>
+     <select id="playerClubFilter" onchange="render()" aria-label="Filtrar atletas por clube" style="padding:11px 12px;border-radius:12px;background:rgba(5,9,19,.78);border:1px solid var(--border);color:var(--text);font-size:12px;font-weight:700;max-width:175px">
+      <option value="ALL">Todos os clubes</option>
+     </select>
+    </div>
     <div class="searchmeta" id="playerSearchMeta">Todos os atletas da liga</div>
     <div class="tabs">
      <button class="active" onclick="setMktTab('allplayers',this)">Atletas & Multas</button>
      <button onclick="setMktTab('history',this)">Negócios Fechados</button>
     </div>
     <div id="mkt-allplayers" class="grid three"></div>
-    <div id="mkt-history" class="card hidden"><div id="transferHistory"></div></div>
+    <div id="mkt-history" class="card hidden">
+     <div class="cardhead">
+      <h2>Negócios Fechados</h2>
+      <select id="transferClubFilter" onchange="render()" aria-label="Filtrar transferências por clube" style="padding:8px 11px;border-radius:10px;background:rgba(5,9,19,.85);border:1px solid var(--border);color:var(--text);font-size:12px;font-weight:700;max-width:190px">
+       <option value="ALL">Todos os clubes</option>
+      </select>
+     </div>
+     <div class="searchbar"><span>⌕</span><input id="transferSearch" type="search" placeholder="Buscar jogador ou clube nas transferências..." autocomplete="off" aria-label="Buscar transferências"></div>
+     <div id="transferHistory"></div>
+    </div>
    </section>
 
    <!-- CLUBES & ELENCOS -->
@@ -1049,8 +1063,28 @@ function render(){
     return `<div class="fixture"><div class="pmeta"><b style="width:22px;color:var(--cyan)">${i + 1}º</b>${playerAvatar(x.p)}<div><b>${esc(x.p.name)}</b><span class="sub">${esc(cl?.name || 'Livre')} • Passe: ${money(x.p.market_value)}</span></div></div><span class="tag cyan">👟 ${x.cnt} assist.</span></div>`;
   }).join('') || '<div class="empty">Nenhuma assistência registrada nesta temporada.</div>';
 
+  const clubFilterEl = $('playerClubFilter');
+  const prevClubFilter = clubFilterEl?.value || 'ALL';
+  if(clubFilterEl){
+    const freeCount = players.filter(p => !p.club_id).length;
+    clubFilterEl.innerHTML = `<option value="ALL">Todos os clubes (${players.length})</option>`
+      + `<option value="FREE">Mercado Livre (${freeCount})</option>`
+      + clubs.map(c => `<option value="${c.id}">${esc(c.name)} (${players.filter(p => p.club_id === c.id).length})</option>`).join('');
+    if([...clubFilterEl.options].some(o => o.value === prevClubFilter)) clubFilterEl.value = prevClubFilter;
+  }
+  const selectedClub = clubFilterEl?.value || 'ALL';
+
   const playerQuery = norm($('playerSearch')?.value || '');
-  const visiblePlayers = players.filter(p => { const clubName = clubs.find(c => c.id === p.club_id)?.name || ''; return !playerQuery || [p.name,p.position,clubName].some(v => norm(v).includes(playerQuery)); });
+  const visiblePlayers = players.filter(p => {
+    const matchesClub = selectedClub === 'ALL'
+      ? true
+      : selectedClub === 'FREE'
+        ? !p.club_id
+        : p.club_id === selectedClub;
+    if(!matchesClub) return false;
+    const clubName = clubs.find(c => c.id === p.club_id)?.name || 'Mercado Livre';
+    return !playerQuery || [p.name, p.position, clubName].some(v => norm(v).includes(playerQuery));
+  });
   if($('playerSearchMeta')) $('playerSearchMeta').textContent = `${visiblePlayers.length} de ${players.length} atletas`;
   $('mkt-allplayers').innerHTML = visiblePlayers.map(p => {
     const cl = clubs.find(c => c.id === p.club_id);
@@ -1072,9 +1106,28 @@ function render(){
         ${isAdmin() ? `<button class="btn secondary sm" onclick="openPlayerModal('${p.id}')">✏️</button>` : ''}
       </div>
     </div>`;
-  }).join('') || `<div class="empty">${playerQuery ? 'Nenhum atleta encontrado para essa busca.' : 'Nenhum atleta cadastrado.'}</div>`;
+  }).join('') || `<div class="empty">${(playerQuery || selectedClub !== 'ALL') ? 'Nenhum atleta encontrado para esse filtro.' : 'Nenhum atleta cadastrado.'}</div>`;
 
-  $('transferHistory').innerHTML = transfers.map(t => `<div class="fixture"><div><b>${esc(t.player_name)}</b><div class="sub">${esc(t.from_club_name || 'Livre')} → ${esc(t.to_club_name)} ${t.offered_player_name ? '(Troca: ' + esc(t.offered_player_name) + ')' : ''}</div></div><b class="accent">${money(t.fee)}</b></div>`).join('') || '<div class="empty">Nenhuma transferência concluída.</div>';
+  const trClubEl = $('transferClubFilter');
+  const prevTrClub = trClubEl?.value || 'ALL';
+  if(trClubEl){
+    trClubEl.innerHTML = `<option value="ALL">Todos os clubes (${transfers.length})</option>`
+      + clubs.map(c => `<option value="${c.id}">${esc(c.name)}</option>`).join('');
+    if([...trClubEl.options].some(o => o.value === prevTrClub)) trClubEl.value = prevTrClub;
+  }
+  const selectedTrClub = trClubEl?.value || 'ALL';
+  const trClubObj = clubs.find(c => c.id === selectedTrClub);
+  const trQuery = norm($('transferSearch')?.value || '');
+
+  const visibleTransfers = transfers.filter(t => {
+    const matchesClub = selectedTrClub === 'ALL'
+      ? true
+      : (t.from_club_id === selectedTrClub || t.to_club_id === selectedTrClub || (trClubObj && (norm(t.from_club_name) === norm(trClubObj.name) || norm(t.to_club_name) === norm(trClubObj.name))));
+    if(!matchesClub) return false;
+    return !trQuery || [t.player_name, t.from_club_name, t.to_club_name, t.offered_player_name].some(v => norm(v).includes(trQuery));
+  });
+
+  $('transferHistory').innerHTML = visibleTransfers.map(t => `<div class="fixture"><div><b>${esc(t.player_name)}</b><div class="sub">${esc(t.from_club_name || 'Livre')} → ${esc(t.to_club_name)} ${t.offered_player_name ? '(Troca: ' + esc(t.offered_player_name) + ')' : ''}</div></div><b class="accent">${money(t.fee)}</b></div>`).join('') || `<div class="empty">${(trQuery || selectedTrClub !== 'ALL') ? 'Nenhuma transferência encontrada para esse clube/busca.' : 'Nenhuma transferência concluída.'}</div>`;
 
   const clubQuery = norm($('clubSearch')?.value || '');
   const visibleClubs = clubs.filter(c => !clubQuery || [c.name,c.owner_name].some(v => norm(v).includes(clubQuery)));
@@ -1337,7 +1390,12 @@ function openOfferModal(targetId){
 function refreshOfferPlayers(){
   const buyerId = $('ofBuyerClub').value;
   const currentTarget = $('ofTargetPlayer').value;
-  $('ofTargetPlayer').innerHTML = players.filter(p => p.club_id && p.club_id !== buyerId).map(p => `<option value="${p.id}" ${p.id === currentTarget ? 'selected' : ''}>${esc(p.name)} (${p.overall}) — ${esc(clubs.find(c => c.id === p.club_id)?.name || '')}</option>`).join('');
+  const otherClubs = clubs.filter(c => c.id !== buyerId);
+  $('ofTargetPlayer').innerHTML = otherClubs.map(c => {
+    const cPlayers = players.filter(p => p.club_id === c.id);
+    if(!cPlayers.length) return '';
+    return `<optgroup label="${esc(c.name)}">${cPlayers.map(p => `<option value="${p.id}" ${p.id === currentTarget ? 'selected' : ''}>${esc(p.name)} (${p.overall}) — ${esc(p.position)}</option>`).join('')}</optgroup>`;
+  }).join('');
   $('ofSwapPlayer').innerHTML = '<option value="">-- Nenhum jogador (apenas dinheiro) --</option>' + players.filter(p => p.club_id === buyerId).map(p => `<option value="${p.id}">${esc(p.name)} (OVR ${p.overall})</option>`).join('');
 }
 async function sendProposal(){
@@ -1543,6 +1601,7 @@ function copyInvite(){
 
 window.addEventListener('DOMContentLoaded', async () => {
   $('playerSearch')?.addEventListener('input', () => render());
+  $('transferSearch')?.addEventListener('input', () => render());
   $('clubSearch')?.addEventListener('input', () => render());
   try {
     if(!window.supabase?.createClient) throw new Error('Biblioteca de conexão não carregada. Verifique sua internet ou bloqueador de conteúdo.');
