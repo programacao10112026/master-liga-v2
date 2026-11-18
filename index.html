@@ -1107,7 +1107,9 @@ function render(){
   $('mkt-allplayers').innerHTML = visiblePlayers.map(p => {
     const cl = clubs.find(c => c.id === p.club_id);
     const clause = Number(p.release_clause || p.market_value * 4);
-    const mine = p.club_id && canManageClub(p.club_id);
+    const ownedByMe = p.club_id && myClubIds().includes(p.club_id);
+    const canShield = p.club_id && canManageClub(p.club_id);
+    const canBuyOrNegotiate = !ownedByMe && (myClubIds().length > 0 || (isAdmin() && clubs.length > 1));
     return `<div class="pcard ${p.overall >= 85 ? 'star' : ''}">
       <div class="prow">
         <div class="pmeta">${playerAvatar(p)}<div style="min-width:0"><b>${esc(p.name)}</b><span class="sub">${esc(p.position)} • ${esc(cl?.name || 'Mercado Livre')}</span></div></div>
@@ -1118,9 +1120,9 @@ function render(){
         <div><span>MULTA (COMPRA IMEDIATA)</span><strong class="gold">${money(clause)}</strong></div>
       </div>
       <div style="display:flex;gap:6px;flex-wrap:wrap">
-        ${mine ? `<button class="btn secondary sm" style="flex:1" onclick="openShieldModal('${p.id}')">🛡️ Blindar (1:4)</button>` : ''}
-        ${!mine ? `<button class="btn gold sm" style="flex:1" onclick="openBuyoutModal('${p.id}')">⚡ Pagar Multa</button>` : ''}
-        ${!mine && p.club_id ? `<button class="btn secondary sm" style="flex:1" onclick="openOfferModal('${p.id}')">⇄ Negociar</button>` : ''}
+        ${canShield ? `<button class="btn secondary sm" style="flex:1" onclick="openShieldModal('${p.id}')">🛡️ Blindar (1:4)</button>` : ''}
+        ${canBuyOrNegotiate ? `<button class="btn gold sm" style="flex:1" onclick="openBuyoutModal('${p.id}')">⚡ Pagar Multa</button>` : ''}
+        ${canBuyOrNegotiate && p.club_id ? `<button class="btn secondary sm" style="flex:1" onclick="openOfferModal('${p.id}')">⇄ Negociar</button>` : ''}
         ${isAdmin() ? `<button class="btn secondary sm" onclick="openPlayerModal('${p.id}')">✏️</button>` : ''}
       </div>
     </div>`;
@@ -1431,10 +1433,11 @@ function openBuyoutModal(playerId){
   if(!p) return;
   const avail = isAdmin() ? clubs.filter(c => c.id !== p.club_id) : clubs.filter(c => c.owner_user_id === user.id && c.id !== p.club_id);
   if(!avail.length) return toast('Você não possui um clube comprador disponível.');
+  const preferredBuyer = avail.find(c => c.owner_user_id === user.id) || avail[0];
   const clause = Number(p.release_clause || p.market_value * 4);
   $('boPlayerId').value = p.id;
   $('boDesc').innerHTML = `Contratar <b>${esc(p.name)}</b> pagando a multa rescisória integral de <b class="gold">${money(clause)}</b> (compra imediata sem troca).`;
-  $('boBuyerClub').innerHTML = avail.map(c => `<option value="${c.id}">${esc(c.name)} (Caixa: ${money(c.balance)})</option>`).join('');
+  $('boBuyerClub').innerHTML = avail.map(c => `<option value="${c.id}" ${c.id === preferredBuyer?.id ? 'selected' : ''}>${esc(c.name)} (Caixa: ${money(c.balance)})</option>`).join('');
   openModal('buyoutModal');
 }
 async function confirmBuyout(){ return runLocked('buyout', async () => {
