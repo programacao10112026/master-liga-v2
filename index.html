@@ -1103,7 +1103,7 @@ tr:last-child td{border:0}
   </div>
  </div>
 
- <div class="modalfoot"><button class="btn secondary" onclick="closeModal('matchModal')">Cancelar</button><button class="btn" onclick="saveMatchResult()">Salvar Placar e Atualizar Tudo</button></div>
+ <div class="modalfoot"><button class="btn danger hidden" id="delMatchBtn" style="margin-right:auto" onclick="deleteMatch($('mEditId').value)">🗑️ Excluir Jogo</button><button class="btn secondary" onclick="closeModal('matchModal')">Cancelar</button><button class="btn" onclick="saveMatchResult()">Salvar Placar e Atualizar Tudo</button></div>
 </div></div>
 
 <!-- MODAL: LANÇAMENTO FINANCEIRO MANUAL -->
@@ -1543,7 +1543,7 @@ function render(){
     return `<div class="match-card">
       <div class="match-card-top">
         <span class="tag">Jogo #${m.match_order || idx + 1} • Rodada ${m.round_number || 1}</span>
-        ${isAdmin() ? `<button class="btn sm" onclick="openMatchModal('${m.id}')">⚽ Lançar Placar</button>` : '<span class="sub">Aguardando</span>'}
+        ${isAdmin() ? `<div style="display:flex;gap:6px;align-items:center"><button class="btn sm" onclick="openMatchModal('${m.id}')">⚽ Lançar Placar</button><button class="btn danger sm" onclick="deleteMatch('${m.id}')" title="Excluir jogo" aria-label="Excluir jogo">🗑️</button></div>` : '<span class="sub">Aguardando</span>'}
       </div>
       <div class="match-card-teams">
         <div class="match-team-side">${crest(h)}<span class="match-team-name">${esc(h?.name || '?')}</span></div>
@@ -1565,7 +1565,7 @@ function render(){
     return `<div class="match-card">
       <div class="match-card-top">
         <span class="tag green">Rodada ${m.round_number || 1} • Encerrado</span>
-        ${isAdmin() ? `<button class="btn secondary sm" onclick="openMatchModal('${m.id}')">✏️ Editar</button>` : ''}
+        ${isAdmin() ? `<div style="display:flex;gap:6px;align-items:center"><button class="btn secondary sm" onclick="openMatchModal('${m.id}')">✏️ Editar</button><button class="btn danger sm" onclick="deleteMatch('${m.id}')" title="Excluir jogo" aria-label="Excluir jogo">🗑️</button></div>` : ''}
       </div>
       <div class="match-card-teams">
         <div class="match-team-side">${crest(h)}<span class="match-team-name">${esc(h?.name || '?')}</span></div>
@@ -1962,6 +1962,7 @@ function openMatchModal(matchId){
   if(!season) return toast('Crie uma temporada primeiro.');
   const m = matches.find(x => x.id === matchId);
   $('mEditId').value = m?.id || '';
+  $('delMatchBtn').classList.toggle('hidden', !m || !isAdmin());
   $('mHome').innerHTML = clubs.map(c => `<option value="${c.id}" ${m?.home_club_id === c.id ? 'selected' : ''}>${esc(c.name)}</option>`).join('');
   $('mAway').innerHTML = clubs.map(c => `<option value="${c.id}" ${m?.away_club_id === c.id ? 'selected' : ''}>${esc(c.name)}</option>`).join('');
   if(!m && clubs.length > 1) $('mAway').selectedIndex = 1;
@@ -2064,6 +2065,27 @@ function refreshMatchEventSelects(){
   $('mAG').value = 0;
   updateScoreboardHeader();
 }
+
+async function deleteMatch(matchId){ return runLocked('delmatch-' + matchId, async () => {
+  if(!isAdmin()) return toast('Apenas o ADM pode excluir jogos.');
+  const m = matches.find(x => x.id === matchId);
+  if(!m) return;
+  const h = clubs.find(c => c.id === m.home_club_id)?.name || 'Mandante';
+  const a = clubs.find(c => c.id === m.away_club_id)?.name || 'Visitante';
+  const isPlayed = m.status === 'played' && m.home_goals !== null;
+  const msg = isPlayed
+    ? `Excluir o jogo realizado ${h} ${m.home_goals} x ${m.away_goals} ${a}? Os pontos, gols, assistências e cartões desta partida serão removidos.`
+    : `Excluir o jogo agendado ${h} x ${a}?`;
+  if(!confirm(msg)) return;
+
+  await sb.from('match_events').delete().eq('match_id', matchId);
+  const { error } = await sb.from('matches').delete().eq('id', matchId);
+  if(error) return toast('Não foi possível excluir o jogo: ' + error.message);
+
+  closeModal('matchModal');
+  toast('Jogo excluído com sucesso!');
+  await loadAll();
+}); }
 
 async function saveMatchResult(){ return runLocked('match', async () => {
   if(!isAdmin()) return toast('Apenas o ADM pode lançar ou editar placares.');
