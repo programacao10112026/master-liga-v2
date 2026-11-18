@@ -612,15 +612,19 @@ tr:last-child td{border:0}
   align-items:center;
   justify-content:center;
   gap:5px;
-  min-width:86px;
-  height:30px;
-  padding:0 10px;
+  width:118px;
+  min-width:118px;
+  max-width:118px;
+  height:32px;
+  padding:0 8px;
   border-radius:9px;
   font-size:11px;
   font-weight:800;
   line-height:1;
   white-space:nowrap;
   flex-shrink:0;
+  box-sizing:border-box;
+  font-variant-numeric:tabular-nums;
 }
 .stat-pill-rank.green{
   background:rgba(16,185,129,0.18);
@@ -1438,12 +1442,12 @@ function render(){
 
   $('scorersList').innerHTML = topScorers.map((x, i) => {
     const cl = clubs.find(c => c.id === x.p.club_id);
-    return `<div class="fixture"><div class="pmeta" style="flex:1;min-width:0"><b style="width:22px;flex-shrink:0;color:var(--gold-light)">${i + 1}º</b>${playerAvatar(x.p)}<div class="rank-info"><b>${esc(x.p.name)}</b><span class="sub">${esc(cl?.name || 'Livre')} • Passe: ${money(x.p.market_value)}</span></div></div><span class="stat-pill-rank green">⚽ ${x.cnt} ${x.cnt === 1 ? 'gol' : 'gols'}</span></div>`;
+    return `<div class="fixture"><div class="pmeta" style="flex:1;min-width:0"><b style="width:22px;flex-shrink:0;color:var(--gold-light)">${i + 1}º</b>${playerAvatar(x.p)}<div class="rank-info"><b>${esc(x.p.name)}</b><span class="sub">${esc(cl?.name || 'Livre')}</span></div></div><span class="stat-pill-rank green">⚽ ${x.cnt} ${x.cnt === 1 ? 'Gol' : 'Gols'}</span></div>`;
   }).join('') || '<div class="empty">Nenhum gol registrado nesta temporada.</div>';
 
   $('assistsList').innerHTML = topAssists.map((x, i) => {
     const cl = clubs.find(c => c.id === x.p.club_id);
-    return `<div class="fixture"><div class="pmeta" style="flex:1;min-width:0"><b style="width:22px;flex-shrink:0;color:var(--cyan)">${i + 1}º</b>${playerAvatar(x.p)}<div class="rank-info"><b>${esc(x.p.name)}</b><span class="sub">${esc(cl?.name || 'Livre')} • Passe: ${money(x.p.market_value)}</span></div></div><span class="stat-pill-rank cyan">👟 ${x.cnt} assist.</span></div>`;
+    return `<div class="fixture"><div class="pmeta" style="flex:1;min-width:0"><b style="width:22px;flex-shrink:0;color:var(--cyan)">${i + 1}º</b>${playerAvatar(x.p)}<div class="rank-info"><b>${esc(x.p.name)}</b><span class="sub">${esc(cl?.name || 'Livre')}</span></div></div><span class="stat-pill-rank cyan">👟 ${x.cnt} ${x.cnt === 1 ? 'Assistência' : 'Assistências'}</span></div>`;
   }).join('') || '<div class="empty">Nenhuma assistência registrada nesta temporada.</div>';
 
   const clubFilterEl = $('playerClubFilter');
