@@ -324,6 +324,197 @@ tr:last-child td{border:0}
 .btn:focus-visible,.iconbtn:focus-visible,.nav button:focus-visible,.mobilebar button:focus-visible{outline:2px solid var(--gold-light);outline-offset:3px}
 @media(max-width:680px){.searchbar{margin-bottom:10px}.card{padding:13px}.pcard{padding:12px}.modal{padding:15px}.auth{padding:24px 18px}}
 
+
+/* PLACAR PREMIUM & EVENTOS LADO A LADO */
+.scoreboard-box{
+  background:linear-gradient(145deg, rgba(16,185,129,0.14), rgba(8,13,26,0.95) 50%, rgba(245,158,11,0.14));
+  border:1px solid var(--border-gold);
+  border-radius:18px;
+  padding:14px 12px;
+  margin-bottom:14px;
+  box-shadow:0 10px 28px rgba(0,0,0,0.45);
+}
+.sb-teams{
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  gap:8px;
+}
+.sb-side{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  gap:6px;
+  min-width:0;
+}
+.sb-side-label{
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:1.1px;
+  text-transform:uppercase;
+}
+.sb-side.home .sb-side-label{color:#34d399}
+.sb-side.away .sb-side-label{color:var(--gold-light)}
+.sb-club-select{
+  width:100%;
+  padding:8px 8px;
+  border-radius:10px;
+  background:rgba(5,9,19,0.9);
+  border:1px solid rgba(148,163,184,0.22);
+  color:#fff;
+  font-size:12px;
+  font-weight:800;
+  text-align:center;
+}
+.sb-stepper{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  margin-top:2px;
+}
+.sb-step-btn{
+  width:34px;
+  height:34px;
+  border-radius:10px;
+  background:rgba(23,34,59,0.95);
+  border:1px solid rgba(255,255,255,0.14);
+  color:#fff;
+  font-size:18px;
+  font-weight:900;
+  display:grid;
+  place-items:center;
+  padding:0;
+}
+.sb-step-btn.plus{
+  background:linear-gradient(135deg, #10b981, #84cc16);
+  color:#04110b;
+  border:0;
+}
+.sb-step-btn.plus.away{
+  background:linear-gradient(135deg, #fcd34d, #f59e0b);
+  color:#1a1002;
+}
+.sb-score-num{
+  font-family:'Teko',sans-serif;
+  font-size:42px;
+  font-weight:700;
+  line-height:1;
+  min-width:34px;
+  text-align:center;
+  color:#fff;
+  background:transparent;
+  border:0;
+  padding:0;
+  -moz-appearance:textfield;
+}
+.sb-score-num::-webkit-outer-spin-button,
+.sb-score-num::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.sb-vs{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+}
+.sb-vs span{
+  font-family:'Teko',sans-serif;
+  font-size:22px;
+  color:var(--muted);
+  font-weight:700;
+}
+.sb-round-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  background:rgba(5,9,19,0.85);
+  border:1px solid var(--border);
+  border-radius:99px;
+  padding:4px 10px;
+  font-size:10px;
+  font-weight:800;
+  color:var(--muted);
+}
+.sb-round-pill input{
+  width:34px;
+  background:transparent;
+  border:0;
+  color:#fff;
+  font-weight:800;
+  font-size:11px;
+  text-align:center;
+  padding:0;
+}
+.sides-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+.side-col{
+  background:rgba(5,9,18,0.72);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:9px;
+  min-width:0;
+}
+.side-col.home{border-top:2px solid var(--emerald)}
+.side-col.away{border-top:2px solid var(--gold)}
+.side-col-head{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  margin-bottom:8px;
+}
+.side-col-title{
+  font-size:11px;
+  font-weight:800;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.side-actions{
+  display:flex;
+  gap:4px;
+  flex-wrap:wrap;
+}
+.side-ev-card{
+  background:rgba(15,23,42,0.92);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:10px;
+  padding:7px;
+  margin-bottom:6px;
+  display:grid;
+  gap:5px;
+  position:relative;
+}
+.side-ev-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:4px;
+}
+.side-ev-card select{
+  width:100%;
+  padding:6px 7px;
+  border-radius:8px;
+  background:rgba(5,9,19,0.9);
+  border:1px solid rgba(148,163,184,0.2);
+  color:#f8fafc;
+  font-size:11px;
+}
+.side-ev-del{
+  background:rgba(244,63,94,0.18);
+  color:#fda4af;
+  border:1px solid rgba(244,63,94,0.3);
+  border-radius:6px;
+  padding:2px 6px;
+  font-size:10px;
+  font-weight:800;
+}
+@media(max-width:440px){
+  .sides-grid{grid-template-columns:1fr}
+}
+
 /* MODALS */
 .modalbg{
   position:fixed;inset:0;background:rgba(2,5,12,0.86);backdrop-filter:blur(8px);
@@ -716,24 +907,62 @@ tr:last-child td{border:0}
 </div></div>
 
 <!-- MODAL: LANÇAR PLACAR + GOLS, ASSISTÊNCIAS E CARTÕES -->
-<div class="modalbg" id="matchModal"><div class="modal"><h3>⚽ Lançar Placar & Eventos da Partida</h3><input type="hidden" id="mEditId">
- <div class="grid two">
-  <div class="field"><label>Mandante</label><select id="mHome" onchange="refreshMatchEventSelects()"></select></div>
-  <div class="field"><label>Visitante</label><select id="mAway" onchange="refreshMatchEventSelects()"></select></div>
- </div>
- <div class="grid three">
-  <div class="field"><label>Gols Mandante</label><input id="mHG" type="number" min="0" value="0"></div>
-  <div class="field"><label>Gols Visitante</label><input id="mAG" type="number" min="0" value="0"></div>
-  <div class="field"><label>Rodada</label><input id="mRound" type="number" min="1" value="1"></div>
- </div>
- <div class="cardhead" style="margin-top:8px"><span class="eyebrow">GOLS, ASSISTÊNCIAS E CARTÕES</span>
-  <div style="display:flex;gap:4px">
-   <button class="btn sm" type="button" onclick="addEventRow('goal')">+ ⚽ Gol</button>
-   <button class="btn secondary sm" type="button" onclick="addEventRow('yellow_card')">+ 🟨</button>
-   <button class="btn danger sm" type="button" onclick="addEventRow('red_card')">+ 🟥</button>
+<div class="modalbg" id="matchModal"><div class="modal" style="width:min(580px,100%)"><h3>⚽ Placar & Eventos da Partida</h3><input type="hidden" id="mEditId">
+ <div class="scoreboard-box">
+  <div class="sb-teams">
+   <div class="sb-side home">
+    <span class="sb-side-label">🏠 Mandante (Esquerda)</span>
+    <div id="mHomeCrest"></div>
+    <select id="mHome" class="sb-club-select" onchange="refreshMatchEventSelects()"></select>
+    <div class="sb-stepper">
+     <button type="button" class="sb-step-btn" onclick="stepScore('home',-1)" aria-label="Diminuir gol mandante">−</button>
+     <input id="mHG" class="sb-score-num" type="number" min="0" value="0" onchange="onManualScoreChange()">
+     <button type="button" class="sb-step-btn plus" onclick="stepScore('home',1)" aria-label="Aumentar gol mandante">+</button>
+    </div>
+   </div>
+   <div class="sb-vs">
+    <span>×</span>
+    <label class="sb-round-pill">RODADA <input id="mRound" type="number" min="1" value="1"></label>
+   </div>
+   <div class="sb-side away">
+    <span class="sb-side-label">✈️ Visitante (Direita)</span>
+    <div id="mAwayCrest"></div>
+    <select id="mAway" class="sb-club-select" onchange="refreshMatchEventSelects()"></select>
+    <div class="sb-stepper">
+     <button type="button" class="sb-step-btn" onclick="stepScore('away',-1)" aria-label="Diminuir gol visitante">−</button>
+     <input id="mAG" class="sb-score-num" type="number" min="0" value="0" onchange="onManualScoreChange()">
+     <button type="button" class="sb-step-btn plus away" onclick="stepScore('away',1)" aria-label="Aumentar gol visitante">+</button>
+    </div>
+   </div>
   </div>
  </div>
- <div id="matchEventsContainer"></div>
+
+ <div class="sides-grid">
+  <div class="side-col home">
+   <div class="side-col-head">
+    <div class="side-col-title accent" id="homeSideTitle">Eventos Mandante</div>
+    <div class="side-actions">
+     <button class="btn sm" type="button" onclick="addSideEvent('home','goal')">+ ⚽ Gol</button>
+     <button class="btn secondary sm" type="button" onclick="addSideEvent('home','yellow_card')">+ 🟨</button>
+     <button class="btn danger sm" type="button" onclick="addSideEvent('home','red_card')">+ 🟥</button>
+    </div>
+   </div>
+   <div id="homeEventsList"></div>
+  </div>
+
+  <div class="side-col away">
+   <div class="side-col-head">
+    <div class="side-col-title gold" id="awaySideTitle">Eventos Visitante</div>
+    <div class="side-actions">
+     <button class="btn gold sm" type="button" onclick="addSideEvent('away','goal')">+ ⚽ Gol</button>
+     <button class="btn secondary sm" type="button" onclick="addSideEvent('away','yellow_card')">+ 🟨</button>
+     <button class="btn danger sm" type="button" onclick="addSideEvent('away','red_card')">+ 🟥</button>
+    </div>
+   </div>
+   <div id="awayEventsList"></div>
+  </div>
+ </div>
+
  <div class="modalfoot"><button class="btn secondary" onclick="closeModal('matchModal')">Cancelar</button><button class="btn" onclick="saveMatchResult()">Salvar Placar e Atualizar Tudo</button></div>
 </div></div>
 
@@ -1526,6 +1755,47 @@ async function runFixtureDraw(){ return runLocked('draw', async () => {
   closeModal('drawModal'); toast('Tabela sorteada com sucesso!'); await loadAll();
 }); }
 
+function updateScoreboardHeader(){
+  const hClub = clubs.find(c => c.id === $('mHome').value);
+  const aClub = clubs.find(c => c.id === $('mAway').value);
+  $('mHomeCrest').innerHTML = crest(hClub, true);
+  $('mAwayCrest').innerHTML = crest(aClub, true);
+  $('homeSideTitle').textContent = `🏠 ${hClub?.name || 'Mandante'}`;
+  $('awaySideTitle').textContent = `✈️ ${aClub?.name || 'Visitante'}`;
+}
+
+function syncScoreFromGoalEvents(){
+  const homeGoals = $('homeEventsList').querySelectorAll('.side-ev-card[data-type="goal"]').length;
+  const awayGoals = $('awayEventsList').querySelectorAll('.side-ev-card[data-type="goal"]').length;
+  $('mHG').value = homeGoals;
+  $('mAG').value = awayGoals;
+}
+
+function stepScore(side, delta){
+  const input = side === 'home' ? $('mHG') : $('mAG');
+  const list = side === 'home' ? $('homeEventsList') : $('awayEventsList');
+  const current = Math.max(0, parseInt(input.value, 10) || 0);
+  const next = Math.max(0, current + delta);
+  if(delta > 0){
+    addSideEvent(side, 'goal');
+  } else if(delta < 0){
+    const goalCards = list.querySelectorAll('.side-ev-card[data-type="goal"]');
+    if(goalCards.length > 0){
+      goalCards[goalCards.length - 1].remove();
+      syncScoreFromGoalEvents();
+    } else {
+      input.value = next;
+    }
+  }
+}
+
+function onManualScoreChange(){
+  const hg = Math.max(0, parseInt($('mHG').value, 10) || 0);
+  const ag = Math.max(0, parseInt($('mAG').value, 10) || 0);
+  $('mHG').value = hg;
+  $('mAG').value = ag;
+}
+
 function openMatchModal(matchId){
   if(!isAdmin()) return toast('Apenas o ADM pode lançar placares.');
   if(!season) return toast('Crie uma temporada primeiro.');
@@ -1537,49 +1807,98 @@ function openMatchModal(matchId){
   $('mHG').value = m?.home_goals ?? 0;
   $('mAG').value = m?.away_goals ?? 0;
   $('mRound').value = m?.round_number || 1;
-  $('matchEventsContainer').innerHTML = '';
+  $('homeEventsList').innerHTML = '';
+  $('awayEventsList').innerHTML = '';
+  updateScoreboardHeader();
   if(m){
-    matchEvents.filter(e => e.match_id === m.id).forEach(e => addEventRow(e.event_type, e));
+    const hId = $('mHome').value;
+    matchEvents.filter(e => e.match_id === m.id).forEach(e => {
+      const side = e.club_id === hId ? 'home' : 'away';
+      addSideEvent(side, e.event_type, e, true);
+    });
+    if(m.home_goals !== null) $('mHG').value = m.home_goals;
+    if(m.away_goals !== null) $('mAG').value = m.away_goals;
   }
   openModal('matchModal');
 }
-function addEventRow(type, existing = null){
-  const hId = $('mHome').value, aId = $('mAway').value;
-  const hPlayers = players.filter(p => p.club_id === hId), aPlayers = players.filter(p => p.club_id === aId);
-  const opts = `<optgroup label="${esc(clubs.find(c => c.id === hId)?.name || 'Mandante')}">${hPlayers.map(p => `<option value="${p.id}" data-club="${hId}">${esc(p.name)}</option>`).join('')}</optgroup>
-                <optgroup label="${esc(clubs.find(c => c.id === aId)?.name || 'Visitante')}">${aPlayers.map(p => `<option value="${p.id}" data-club="${aId}">${esc(p.name)}</option>`).join('')}</optgroup>`;
-  const div = document.createElement('div');
-  div.className = 'evrow';
-  div.dataset.type = type;
+
+function addSideEvent(side, type, existing = null, skipAutoScore = false){
+  const clubId = side === 'home' ? $('mHome').value : $('mAway').value;
+  const clubPlayers = players.filter(p => p.club_id === clubId);
+  const playerOpts = clubPlayers.length
+    ? clubPlayers.map(p => `<option value="${p.id}">${esc(p.name)} (${esc(p.position)})</option>`).join('')
+    : '<option value="">Sem atletas no elenco</option>';
+
+  const card = document.createElement('div');
+  card.className = 'side-ev-card';
+  card.dataset.type = type;
+  card.dataset.side = side;
+
   if(type === 'goal'){
-    div.innerHTML = `<select class="ev-player">${opts}</select><select class="ev-assist"><option value="">Sem assistência</option>${opts}</select><button class="btn danger sm" type="button" onclick="this.parentElement.remove()">✕</button>`;
+    card.innerHTML = `
+      <div class="side-ev-top">
+        <span class="tag ${side === 'home' ? 'green' : 'gold'}">⚽ Gol</span>
+        <button type="button" class="side-ev-del" onclick="removeSideEvent(this)">✕</button>
+      </div>
+      <select class="ev-player" aria-label="Autor do gol">${playerOpts}</select>
+      <select class="ev-assist" aria-label="Assistência"><option value="">👟 Sem assistência</option>${playerOpts}</select>
+    `;
   } else {
-    const icon = type === 'yellow_card' ? '🟨 Amarelo' : '🟥 Vermelho';
-    div.innerHTML = `<span class="tag ${type === 'yellow_card' ? 'gold' : 'red'}">${icon}</span><select class="ev-player">${opts}</select><button class="btn danger sm" type="button" onclick="this.parentElement.remove()">✕</button>`;
+    const label = type === 'yellow_card' ? '🟨 Amarelo' : '🟥 Vermelho';
+    const cls = type === 'yellow_card' ? 'gold' : 'red';
+    card.innerHTML = `
+      <div class="side-ev-top">
+        <span class="tag ${cls}">${label}</span>
+        <button type="button" class="side-ev-del" onclick="removeSideEvent(this)">✕</button>
+      </div>
+      <select class="ev-player" aria-label="Jogador punido">${playerOpts}</select>
+    `;
   }
-  $('matchEventsContainer').appendChild(div);
+
+  const container = side === 'home' ? $('homeEventsList') : $('awayEventsList');
+  container.appendChild(card);
+
   if(existing){
-    const playerSelect = div.querySelector('.ev-player');
+    const playerSelect = card.querySelector('.ev-player');
     if(existing.player_id && ![...playerSelect.options].some(o => o.value === existing.player_id)){
       const oldPlayer = players.find(p => p.id === existing.player_id);
-      const option = new Option(oldPlayer?.name || 'Jogador registrado anteriormente', existing.player_id);
-      option.dataset.club = existing.club_id || '';
-      playerSelect.add(option);
+      playerSelect.add(new Option(oldPlayer?.name || 'Jogador anterior', existing.player_id));
     }
-    playerSelect.value = existing.player_id || '';
-    const assistSelect = div.querySelector('.ev-assist');
+    if(existing.player_id) playerSelect.value = existing.player_id;
+
+    const assistSelect = card.querySelector('.ev-assist');
     if(assistSelect && existing.assist_player_id){
       if(![...assistSelect.options].some(o => o.value === existing.assist_player_id)){
         const oldAssist = players.find(p => p.id === existing.assist_player_id);
-        const assistOption = new Option(oldAssist?.name || 'Assistente registrado anteriormente', existing.assist_player_id);
-        assistOption.dataset.club = existing.club_id || '';
-        assistSelect.add(assistOption);
+        assistSelect.add(new Option(oldAssist?.name || 'Assistente anterior', existing.assist_player_id));
       }
       assistSelect.value = existing.assist_player_id;
     }
+  } else if(type === 'goal' && clubPlayers.length > 1){
+    // Evita deixar autor e assistência iguais se o usuário não mexer
+    const assistSelect = card.querySelector('.ev-assist');
+    if(assistSelect) assistSelect.value = '';
+  }
+
+  if(type === 'goal' && !skipAutoScore){
+    syncScoreFromGoalEvents();
   }
 }
-function refreshMatchEventSelects(){ $('matchEventsContainer').innerHTML = ''; }
+
+function removeSideEvent(btn){
+  const card = btn.closest('.side-ev-card');
+  const wasGoal = card?.dataset.type === 'goal';
+  card?.remove();
+  if(wasGoal) syncScoreFromGoalEvents();
+}
+
+function refreshMatchEventSelects(){
+  $('homeEventsList').innerHTML = '';
+  $('awayEventsList').innerHTML = '';
+  $('mHG').value = 0;
+  $('mAG').value = 0;
+  updateScoreboardHeader();
+}
 
 async function saveMatchResult(){ return runLocked('match', async () => {
   if(!isAdmin()) return toast('Apenas o ADM pode lançar ou editar placares.');
@@ -1587,23 +1906,27 @@ async function saveMatchResult(){ return runLocked('match', async () => {
   if(!h || !a || h === a) return toast('Escolha clubes diferentes.');
   if(!Number.isInteger(hg) || hg < 0 || !Number.isInteger(ag) || ag < 0 || !Number.isInteger(rnd) || rnd < 1) return toast('Placar e rodada devem ser números inteiros válidos.');
   const evs = [];
-  $('matchEventsContainer').querySelectorAll('.evrow').forEach(row => {
-    const sel = row.querySelector('.ev-player');
-    const opt = sel.options[sel.selectedIndex];
-    if(!opt) return;
-    const assistSel = row.querySelector('.ev-assist');
-    if(assistSel && assistSel.value === sel.value){
-      evs.push({ _invalid: 'O autor do gol não pode dar assistência para si mesmo.' });
-      return;
-    }
-    if(assistSel && assistSel.value){
-      const assistOpt = assistSel.options[assistSel.selectedIndex];
-      if(!assistOpt || assistOpt.dataset.club !== opt.dataset.club){
-        evs.push({ _invalid: 'A assistência deve ser de um jogador do mesmo clube que marcou o gol.' });
+  ['home', 'away'].forEach(side => {
+    const clubId = side === 'home' ? h : a;
+    const container = side === 'home' ? $('homeEventsList') : $('awayEventsList');
+    container.querySelectorAll('.side-ev-card').forEach(card => {
+      const sel = card.querySelector('.ev-player');
+      if(!sel || !sel.value){
+        evs.push({ _invalid: 'Selecione o jogador em todos os eventos adicionados.' });
         return;
       }
-    }
-    evs.push({ event_type: row.dataset.type, club_id: opt.dataset.club, player_id: sel.value, assist_player_id: assistSel ? (assistSel.value || null) : null });
+      const assistSel = card.querySelector('.ev-assist');
+      if(assistSel && assistSel.value === sel.value){
+        evs.push({ _invalid: 'O autor do gol não pode dar assistência para si mesmo.' });
+        return;
+      }
+      evs.push({
+        event_type: card.dataset.type,
+        club_id: clubId,
+        player_id: sel.value,
+        assist_player_id: assistSel ? (assistSel.value || null) : null
+      });
+    });
   });
   const invalid = evs.find(e => e._invalid);
   if(invalid) return toast(invalid._invalid);
