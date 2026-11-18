@@ -1450,9 +1450,14 @@ async function confirmBuyout(){ return runLocked('buyout', async () => {
 function openOfferModal(targetId){
   const availClubs = isAdmin() ? clubs : clubs.filter(c => c.owner_user_id === user.id);
   if(!availClubs.length) return toast('Você precisa ter um clube vinculado para propor negociações.');
-  $('ofBuyerClub').innerHTML = availClubs.map(c => `<option value="${c.id}">${esc(c.name)} (${money(c.balance)})</option>`).join('');
-  $('ofTargetPlayer').innerHTML = players.filter(p => p.club_id && !availClubs.some(c => c.id === p.club_id)).map(p => `<option value="${p.id}" ${p.id === targetId ? 'selected' : ''}>${esc(p.name)} (${p.overall}) — ${esc(clubs.find(c => c.id === p.club_id)?.name || '')}</option>`).join('');
-  if(!$('ofTargetPlayer').options.length) return toast('Não há jogadores de outros clubes disponíveis para negociação.');
+  const targetPlayer = targetId ? players.find(p => p.id === targetId) : null;
+  const preferredBuyer = availClubs.find(c => c.owner_user_id === user.id && c.id !== targetPlayer?.club_id)
+    || availClubs.find(c => c.id !== targetPlayer?.club_id)
+    || availClubs[0];
+  $('ofBuyerClub').innerHTML = availClubs.map(c => `<option value="${c.id}" ${c.id === preferredBuyer?.id ? 'selected' : ''}>${esc(c.name)} (${money(c.balance)})</option>`).join('');
+  const eligibleTargets = players.filter(p => p.club_id && p.club_id !== preferredBuyer?.id);
+  if(!eligibleTargets.length) return toast('Não há jogadores de outros clubes disponíveis para negociação.');
+  $('ofTargetPlayer').innerHTML = eligibleTargets.map(p => `<option value="${p.id}" ${p.id === targetId ? 'selected' : ''}>${esc(p.name)} (${p.overall}) — ${esc(clubs.find(c => c.id === p.club_id)?.name || '')}</option>`).join('');
   $('ofCash').value = 0;
   refreshOfferPlayers();
   openModal('offerModal');
