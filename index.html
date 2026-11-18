@@ -325,20 +325,47 @@ tr:last-child td{border:0}
 @media(max-width:680px){.searchbar{margin-bottom:10px}.card{padding:13px}.pcard{padding:12px}.modal{padding:15px}.auth{padding:24px 18px}}
 
 
-/* PLACAR PREMIUM & EVENTOS LADO A LADO */
+/* PLACAR PREMIUM & LISTA DE JOGOS MOBILE */
 .scoreboard-box{
-  background:linear-gradient(145deg, rgba(16,185,129,0.14), rgba(8,13,26,0.95) 50%, rgba(245,158,11,0.14));
+  background:linear-gradient(155deg, rgba(16,185,129,0.12), rgba(8,13,26,0.96) 50%, rgba(245,158,11,0.12));
   border:1px solid var(--border-gold);
-  border-radius:18px;
-  padding:14px 12px;
-  margin-bottom:14px;
-  box-shadow:0 10px 28px rgba(0,0,0,0.45);
+  border-radius:16px;
+  padding:12px 10px;
+  margin-bottom:12px;
+}
+.sb-top-row{
+  display:flex;
+  justify-content:center;
+  margin-bottom:10px;
+}
+.sb-round-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  background:rgba(5,9,19,0.9);
+  border:1px solid rgba(255,255,255,0.12);
+  border-radius:99px;
+  padding:4px 12px;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.8px;
+  color:var(--gold-light);
+}
+.sb-round-pill input{
+  width:32px;
+  background:transparent;
+  border:0;
+  color:#fff;
+  font-weight:900;
+  font-size:12px;
+  text-align:center;
+  padding:0;
 }
 .sb-teams{
   display:grid;
-  grid-template-columns:1fr auto 1fr;
-  align-items:center;
-  gap:8px;
+  grid-template-columns:minmax(0,1fr) 24px minmax(0,1fr);
+  align-items:start;
+  gap:6px;
 }
 .sb-side{
   display:flex;
@@ -351,41 +378,47 @@ tr:last-child td{border:0}
 .sb-side-label{
   font-size:9px;
   font-weight:800;
-  letter-spacing:1.1px;
+  letter-spacing:1px;
   text-transform:uppercase;
 }
 .sb-side.home .sb-side-label{color:#34d399}
 .sb-side.away .sb-side-label{color:var(--gold-light)}
 .sb-club-select{
   width:100%;
-  padding:8px 8px;
+  padding:7px 6px;
   border-radius:10px;
-  background:rgba(5,9,19,0.9);
+  background:rgba(5,9,19,0.92);
   border:1px solid rgba(148,163,184,0.22);
   color:#fff;
-  font-size:12px;
+  font-size:11px;
   font-weight:800;
   text-align:center;
+  text-overflow:ellipsis;
 }
 .sb-stepper{
-  display:flex;
+  display:inline-flex;
   align-items:center;
   justify-content:center;
-  gap:8px;
+  gap:6px;
+  background:rgba(4,7,15,0.85);
+  border:1px solid rgba(255,255,255,0.08);
+  padding:4px 6px;
+  border-radius:12px;
   margin-top:2px;
 }
 .sb-step-btn{
-  width:34px;
-  height:34px;
-  border-radius:10px;
-  background:rgba(23,34,59,0.95);
+  width:30px;
+  height:30px;
+  border-radius:8px;
+  background:rgba(30,41,59,0.95);
   border:1px solid rgba(255,255,255,0.14);
   color:#fff;
-  font-size:18px;
+  font-size:17px;
   font-weight:900;
   display:grid;
   place-items:center;
   padding:0;
+  flex-shrink:0;
 }
 .sb-step-btn.plus{
   background:linear-gradient(135deg, #10b981, #84cc16);
@@ -398,121 +431,179 @@ tr:last-child td{border:0}
 }
 .sb-score-num{
   font-family:'Teko',sans-serif;
-  font-size:42px;
+  font-size:34px;
   font-weight:700;
   line-height:1;
-  min-width:34px;
+  width:32px;
+  max-width:32px;
   text-align:center;
   color:#fff;
   background:transparent;
   border:0;
   padding:0;
+  flex-shrink:0;
   -moz-appearance:textfield;
 }
 .sb-score-num::-webkit-outer-spin-button,
 .sb-score-num::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 .sb-vs{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:6px;
-}
-.sb-vs span{
+  display:grid;
+  place-items:center;
+  height:100%;
+  padding-top:36px;
   font-family:'Teko',sans-serif;
   font-size:22px;
   color:var(--muted);
   font-weight:700;
 }
-.sb-round-pill{
-  display:inline-flex;
-  align-items:center;
-  gap:5px;
-  background:rgba(5,9,19,0.85);
-  border:1px solid var(--border);
-  border-radius:99px;
-  padding:4px 10px;
-  font-size:10px;
-  font-weight:800;
-  color:var(--muted);
-}
-.sb-round-pill input{
-  width:34px;
-  background:transparent;
-  border:0;
-  color:#fff;
-  font-weight:800;
-  font-size:11px;
-  text-align:center;
-  padding:0;
-}
 .sides-grid{
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
+  grid-template-columns:1fr;
+  gap:10px;
 }
 .side-col{
-  background:rgba(5,9,18,0.72);
+  background:rgba(5,9,18,0.78);
   border:1px solid var(--border);
   border-radius:14px;
-  padding:9px;
+  padding:10px;
   min-width:0;
 }
-.side-col.home{border-top:2px solid var(--emerald)}
-.side-col.away{border-top:2px solid var(--gold)}
+.side-col.home{border-left:3px solid var(--emerald)}
+.side-col.away{border-left:3px solid var(--gold)}
 .side-col-head{
   display:flex;
-  flex-direction:column;
-  gap:6px;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
   margin-bottom:8px;
+  flex-wrap:wrap;
 }
 .side-col-title{
-  font-size:11px;
+  font-size:12px;
   font-weight:800;
-  white-space:nowrap;
+  min-width:0;
   overflow:hidden;
   text-overflow:ellipsis;
+  white-space:nowrap;
 }
 .side-actions{
   display:flex;
-  gap:4px;
-  flex-wrap:wrap;
+  gap:5px;
+  flex-shrink:0;
 }
 .side-ev-card{
-  background:rgba(15,23,42,0.92);
+  background:rgba(15,23,42,0.95);
   border:1px solid rgba(255,255,255,0.08);
   border-radius:10px;
-  padding:7px;
+  padding:8px;
   margin-bottom:6px;
   display:grid;
-  gap:5px;
-  position:relative;
+  gap:6px;
 }
+.side-ev-card:last-child{margin-bottom:0}
 .side-ev-top{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:4px;
+  gap:6px;
+}
+.side-ev-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:6px;
+}
+.side-ev-field label{
+  display:block;
+  font-size:9px;
+  font-weight:800;
+  color:var(--muted);
+  letter-spacing:.4px;
+  margin-bottom:3px;
+  text-transform:uppercase;
 }
 .side-ev-card select{
   width:100%;
-  padding:6px 7px;
+  padding:7px 8px;
   border-radius:8px;
-  background:rgba(5,9,19,0.9);
-  border:1px solid rgba(148,163,184,0.2);
+  background:rgba(5,9,19,0.92);
+  border:1px solid rgba(148,163,184,0.22);
   color:#f8fafc;
   font-size:11px;
+  font-weight:600;
 }
 .side-ev-del{
-  background:rgba(244,63,94,0.18);
+  background:rgba(244,63,94,0.16);
   color:#fda4af;
   border:1px solid rgba(244,63,94,0.3);
-  border-radius:6px;
-  padding:2px 6px;
+  border-radius:7px;
+  padding:3px 7px;
   font-size:10px;
   font-weight:800;
 }
-@media(max-width:440px){
-  .sides-grid{grid-template-columns:1fr}
+
+/* CARDS DE PARTIDAS (PRÓXIMOS JOGOS & REALIZADOS) */
+.match-card-list{display:grid;gap:10px}
+.match-card{
+  background:linear-gradient(155deg, rgba(18,27,48,0.88), rgba(8,13,26,0.94));
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:15px;
+  padding:12px;
+  display:grid;
+  gap:10px;
+}
+.match-card-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+}
+.match-card-teams{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);
+  align-items:center;
+  gap:8px;
+}
+.match-team-side{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  min-width:0;
+  font-weight:800;
+  font-size:12px;
+}
+.match-team-side.away{
+  justify-content:flex-end;
+  text-align:right;
+}
+.match-team-name{
+  overflow:hidden;
+  text-overflow:ellipsis;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  line-height:1.25;
+}
+.match-vs-badge{
+  background:rgba(5,9,18,0.92);
+  border:1px solid var(--border-gold);
+  border-radius:9px;
+  padding:5px 10px;
+  font-weight:900;
+  font-size:12px;
+  color:var(--gold-light);
+  white-space:nowrap;
+  text-align:center;
+}
+.match-card-foot{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  padding-top:8px;
+  border-top:1px solid rgba(255,255,255,0.06);
+}
+@media(max-width:420px){
+  .side-ev-grid{grid-template-columns:1fr}
 }
 
 /* MODALS */
@@ -907,11 +998,14 @@ tr:last-child td{border:0}
 </div></div>
 
 <!-- MODAL: LANÇAR PLACAR + GOLS, ASSISTÊNCIAS E CARTÕES -->
-<div class="modalbg" id="matchModal"><div class="modal" style="width:min(580px,100%)"><h3>⚽ Placar & Eventos da Partida</h3><input type="hidden" id="mEditId">
+<div class="modalbg" id="matchModal"><div class="modal" style="width:min(540px,100%)"><h3>⚽ Placar & Eventos da Partida</h3><input type="hidden" id="mEditId">
  <div class="scoreboard-box">
+  <div class="sb-top-row">
+   <label class="sb-round-pill">RODADA <input id="mRound" type="number" min="1" value="1"></label>
+  </div>
   <div class="sb-teams">
    <div class="sb-side home">
-    <span class="sb-side-label">🏠 Mandante (Esquerda)</span>
+    <span class="sb-side-label">🏠 Casa (Esquerda)</span>
     <div id="mHomeCrest"></div>
     <select id="mHome" class="sb-club-select" onchange="refreshMatchEventSelects()"></select>
     <div class="sb-stepper">
@@ -920,10 +1014,7 @@ tr:last-child td{border:0}
      <button type="button" class="sb-step-btn plus" onclick="stepScore('home',1)" aria-label="Aumentar gol mandante">+</button>
     </div>
    </div>
-   <div class="sb-vs">
-    <span>×</span>
-    <label class="sb-round-pill">RODADA <input id="mRound" type="number" min="1" value="1"></label>
-   </div>
+   <div class="sb-vs">×</div>
    <div class="sb-side away">
     <span class="sb-side-label">✈️ Visitante (Direita)</span>
     <div id="mAwayCrest"></div>
@@ -940,26 +1031,26 @@ tr:last-child td{border:0}
  <div class="sides-grid">
   <div class="side-col home">
    <div class="side-col-head">
-    <div class="side-col-title accent" id="homeSideTitle">Eventos Mandante</div>
+    <div class="side-col-title accent" id="homeSideTitle">🏠 Mandante</div>
     <div class="side-actions">
      <button class="btn sm" type="button" onclick="addSideEvent('home','goal')">+ ⚽ Gol</button>
      <button class="btn secondary sm" type="button" onclick="addSideEvent('home','yellow_card')">+ 🟨</button>
      <button class="btn danger sm" type="button" onclick="addSideEvent('home','red_card')">+ 🟥</button>
     </div>
    </div>
-   <div id="homeEventsList"></div>
+   <div id="homeEventsList"><div class="sub ev-empty-hint" style="font-size:11px">Toque em <b>+ ⚽ Gol</b> ou no <b>+</b> acima para registrar gols da casa.</div></div>
   </div>
 
   <div class="side-col away">
    <div class="side-col-head">
-    <div class="side-col-title gold" id="awaySideTitle">Eventos Visitante</div>
+    <div class="side-col-title gold" id="awaySideTitle">✈️ Visitante</div>
     <div class="side-actions">
      <button class="btn gold sm" type="button" onclick="addSideEvent('away','goal')">+ ⚽ Gol</button>
      <button class="btn secondary sm" type="button" onclick="addSideEvent('away','yellow_card')">+ 🟨</button>
      <button class="btn danger sm" type="button" onclick="addSideEvent('away','red_card')">+ 🟥</button>
     </div>
    </div>
-   <div id="awayEventsList"></div>
+   <div id="awayEventsList"><div class="sub ev-empty-hint" style="font-size:11px">Toque em <b>+ ⚽ Gol</b> ou no <b>+</b> acima para registrar gols do visitante.</div></div>
   </div>
  </div>
 
@@ -1398,12 +1489,22 @@ function render(){
 
   $('cntSched').textContent = schedMatches.length;
   $('cntPlayed').textContent = playedMatches.length;
-  $('matchesScheduled').innerHTML = schedMatches.map((m, idx) => {
+  $('matchesScheduled').innerHTML = `<div class="match-card-list">` + (schedMatches.map((m, idx) => {
     const h = clubs.find(c => c.id === m.home_club_id), a = clubs.find(c => c.id === m.away_club_id);
-    return `<div class="fixture"><div style="min-width:0"><span class="tag">Jogo #${m.match_order || idx + 1} • Rodada ${m.round_number || 1}</span><div style="margin-top:6px"><b>${esc(h?.name || '?')}</b> <span class="sub">vs</span> <b>${esc(a?.name || '?')}</b></div></div>${isAdmin() ? `<button class="btn sm" onclick="openMatchModal('${m.id}')">Lançar Placar</button>` : '<span class="sub">Aguardando</span>'}</div>`;
-  }).join('') || '<div class="empty">Nenhum jogo pendente. Toque em "Sortear Tabela" para gerar os confrontos.</div>';
+    return `<div class="match-card">
+      <div class="match-card-top">
+        <span class="tag">Jogo #${m.match_order || idx + 1} • Rodada ${m.round_number || 1}</span>
+        ${isAdmin() ? `<button class="btn sm" onclick="openMatchModal('${m.id}')">⚽ Lançar Placar</button>` : '<span class="sub">Aguardando</span>'}
+      </div>
+      <div class="match-card-teams">
+        <div class="match-team-side">${crest(h)}<span class="match-team-name">${esc(h?.name || '?')}</span></div>
+        <span class="match-vs-badge">VS</span>
+        <div class="match-team-side away"><span class="match-team-name">${esc(a?.name || '?')}</span>${crest(a)}</div>
+      </div>
+    </div>`;
+  }).join('') || '<div class="empty">Nenhum jogo pendente. Toque em "Sortear Tabela" para gerar os confrontos.</div>') + `</div>`;
 
-  $('matchesPlayed').innerHTML = playedMatches.slice().reverse().map(m => {
+  $('matchesPlayed').innerHTML = `<div class="match-card-list">` + (playedMatches.slice().reverse().map(m => {
     const h = clubs.find(c => c.id === m.home_club_id), a = clubs.find(c => c.id === m.away_club_id);
     const evs = matchEvents.filter(e => e.match_id === m.id);
     const summary = evs.map(e => {
@@ -1412,8 +1513,19 @@ function render(){
       if(e.event_type === 'yellow_card') return `🟨 ${pl?.name || ''}`;
       return `🟥 ${pl?.name || ''}`;
     }).join(' • ');
-    return `<div class="fixture" style="flex-direction:column;align-items:stretch"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span class="club">${crest(h)}${esc(h?.name || '?')}</span><span class="score">${m.home_goals} : ${m.away_goals}</span><span class="club">${esc(a?.name || '?')}${crest(a)}</span></div><div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:6px"><div class="sub">${esc(summary || 'Sem eventos individuais registrados')}</div>${isAdmin() ? `<button class="btn secondary sm" onclick="openMatchModal('${m.id}')">✏️ Editar</button>` : ''}</div></div>`;
-  }).join('') || '<div class="empty">Nenhuma partida realizada ainda.</div>';
+    return `<div class="match-card">
+      <div class="match-card-top">
+        <span class="tag green">Rodada ${m.round_number || 1} • Encerrado</span>
+        ${isAdmin() ? `<button class="btn secondary sm" onclick="openMatchModal('${m.id}')">✏️ Editar</button>` : ''}
+      </div>
+      <div class="match-card-teams">
+        <div class="match-team-side">${crest(h)}<span class="match-team-name">${esc(h?.name || '?')}</span></div>
+        <span class="score">${m.home_goals} : ${m.away_goals}</span>
+        <div class="match-team-side away"><span class="match-team-name">${esc(a?.name || '?')}</span>${crest(a)}</div>
+      </div>
+      <div class="match-card-foot"><div class="sub">${esc(summary || 'Sem eventos individuais registrados')}</div></div>
+    </div>`;
+  }).join('') || '<div class="empty">Nenhuma partida realizada ainda.</div>') + `</div>`;
 
   const inc = ledger.filter(x => x.entry_type === 'income').reduce((a, x) => a + Number(x.amount), 0);
   const exp = ledger.filter(x => x.entry_type === 'expense').reduce((a, x) => a + Number(x.amount), 0);
@@ -1807,8 +1919,8 @@ function openMatchModal(matchId){
   $('mHG').value = m?.home_goals ?? 0;
   $('mAG').value = m?.away_goals ?? 0;
   $('mRound').value = m?.round_number || 1;
-  $('homeEventsList').innerHTML = '';
-  $('awayEventsList').innerHTML = '';
+  $('homeEventsList').innerHTML = '<div class="sub ev-empty-hint" style="font-size:11px">Toque em <b>+ ⚽ Gol</b> ou no <b>+</b> acima para registrar gols da casa.</div>';
+  $('awayEventsList').innerHTML = '<div class="sub ev-empty-hint" style="font-size:11px">Toque em <b>+ ⚽ Gol</b> ou no <b>+</b> acima para registrar gols do visitante.</div>';
   updateScoreboardHeader();
   if(m){
     const hId = $('mHome').value;
@@ -1840,22 +1952,26 @@ function addSideEvent(side, type, existing = null, skipAutoScore = false){
         <span class="tag ${side === 'home' ? 'green' : 'gold'}">⚽ Gol</span>
         <button type="button" class="side-ev-del" onclick="removeSideEvent(this)">✕</button>
       </div>
-      <select class="ev-player" aria-label="Autor do gol">${playerOpts}</select>
-      <select class="ev-assist" aria-label="Assistência"><option value="">👟 Sem assistência</option>${playerOpts}</select>
+      <div class="side-ev-grid">
+        <div class="side-ev-field"><label>⚽ Autor do Gol</label><select class="ev-player" aria-label="Autor do gol">${playerOpts}</select></div>
+        <div class="side-ev-field"><label>👟 Assistência</label><select class="ev-assist" aria-label="Assistência"><option value="">Sem assistência</option>${playerOpts}</select></div>
+      </div>
     `;
   } else {
-    const label = type === 'yellow_card' ? '🟨 Amarelo' : '🟥 Vermelho';
+    const label = type === 'yellow_card' ? '🟨 Cartão Amarelo' : '🟥 Cartão Vermelho';
     const cls = type === 'yellow_card' ? 'gold' : 'red';
     card.innerHTML = `
       <div class="side-ev-top">
         <span class="tag ${cls}">${label}</span>
         <button type="button" class="side-ev-del" onclick="removeSideEvent(this)">✕</button>
       </div>
-      <select class="ev-player" aria-label="Jogador punido">${playerOpts}</select>
+      <div class="side-ev-field"><label>Atleta</label><select class="ev-player" aria-label="Jogador punido">${playerOpts}</select></div>
     `;
   }
 
   const container = side === 'home' ? $('homeEventsList') : $('awayEventsList');
+  const hint = container.querySelector('.ev-empty-hint');
+  if(hint) hint.remove();
   container.appendChild(card);
 
   if(existing){
@@ -1893,8 +2009,8 @@ function removeSideEvent(btn){
 }
 
 function refreshMatchEventSelects(){
-  $('homeEventsList').innerHTML = '';
-  $('awayEventsList').innerHTML = '';
+  $('homeEventsList').innerHTML = '<div class="sub ev-empty-hint" style="font-size:11px">Toque em <b>+ ⚽ Gol</b> ou no <b>+</b> acima para registrar gols da casa.</div>';
+  $('awayEventsList').innerHTML = '<div class="sub ev-empty-hint" style="font-size:11px">Toque em <b>+ ⚽ Gol</b> ou no <b>+</b> acima para registrar gols do visitante.</div>';
   $('mHG').value = 0;
   $('mAG').value = 0;
   updateScoreboardHeader();
