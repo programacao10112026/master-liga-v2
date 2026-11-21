@@ -1800,13 +1800,14 @@ function render(){
     </div>`;
   }).join('') || '<div class="empty">Nenhuma partida realizada ainda.</div>') + `</div>`;
 
-  const inc = ledger.filter(x => x.entry_type === 'income').reduce((a, x) => a + Number(x.amount), 0);
-  const exp = ledger.filter(x => x.entry_type === 'expense').reduce((a, x) => a + Number(x.amount), 0);
+  const visibleLedger = ledger.filter(x => !/\[(SPONSOR_SIGN|SPONSOR_UNSIGN|MATCH_FLAGS):/.test(String(x.description || '')));
+  const inc = visibleLedger.filter(x => x.entry_type === 'income').reduce((a, x) => a + Number(x.amount), 0);
+  const exp = visibleLedger.filter(x => x.entry_type === 'expense').reduce((a, x) => a + Number(x.amount), 0);
   $('fCash').textContent = money(clubs.reduce((a, c) => a + Number(c.balance), 0));
   $('fIncome').textContent = money(inc);
   $('fExpense').textContent = money(exp);
   $('fBalance').textContent = money(inc - exp);
-  $('ledgerRows').innerHTML = ledger.map(x => `<tr><td>${new Date(x.created_at).toLocaleDateString('pt-BR')}</td><td>${esc(clubs.find(c => c.id === x.club_id)?.name || '—')}</td><td><span class="tag ${x.entry_type === 'income' ? 'green' : 'red'}">${x.entry_type === 'income' ? 'Receita' : 'Despesa'}</span></td><td>${esc(x.description)}</td><td><b>${money(x.amount)}</b></td></tr>`).join('') || '<tr><td colspan="5" class="empty">Sem lançamentos.</td></tr>';
+  $('ledgerRows').innerHTML = visibleLedger.map(x => `<tr><td>${new Date(x.created_at).toLocaleDateString('pt-BR')}</td><td>${esc(clubs.find(c => c.id === x.club_id)?.name || '—')}</td><td><span class="tag ${x.entry_type === 'income' ? 'green' : 'red'}">${x.entry_type === 'income' ? 'Receita' : 'Despesa'}</span></td><td>${esc(String(x.description || '').replace(/\s*\[SPONSOR_PAYOUT:[^\]]+\]/g, ''))}</td><td><b>${money(x.amount)}</b></td></tr>`).join('') || '<tr><td colspan="5" class="empty">Sem lançamentos.</td></tr>';
 
   $('seasonList').innerHTML = seasons.map(s => `<div class="fixture"><div><b>${esc(s.name)}</b><div class="sub">${new Date(s.created_at).toLocaleDateString('pt-BR')}</div></div><span class="tag ${s.status === 'active' ? 'green' : ''}">${s.status === 'active' ? 'ATIVA' : 'ENCERRADA'}</span></div>`).join('');
   $('cfgGoal').value = league.goal_bonus ?? 50000;
@@ -2341,7 +2342,7 @@ async function signClubSponsor(clubId, sponsorId){
   if(!club || !sp) return;
   const desc = `Contrato de Patrocínio: ${sp.name} [SPONSOR_SIGN:${season.id}:${clubId}:${sponsorId}]`;
   const { error } = await sb.from('ledger_entries').insert({
-    league_id: league.id, season_id: season.id, club_id: clubId, entry_type: 'income', amount: 0, description: desc
+    league_id: league.id, season_id: season.id, club_id: clubId, entry_type: 'income', amount: 1, description: desc
   });
   if(error) return toast('Erro ao assinar patrocínio: ' + error.message);
   try {
@@ -2362,7 +2363,7 @@ async function unsignClubSponsor(clubId, sponsorId){
   const sp = sponsors.find(s => s.id === sponsorId);
   const desc = `Distrato de Patrocínio: ${sp?.name || ''} [SPONSOR_UNSIGN:${season.id}:${clubId}:${sponsorId}]`;
   const { error } = await sb.from('ledger_entries').insert({
-    league_id: league.id, season_id: season.id, club_id: clubId, entry_type: 'expense', amount: 0, description: desc
+    league_id: league.id, season_id: season.id, club_id: clubId, entry_type: 'expense', amount: 1, description: desc
   });
   if(error) return toast(error.message);
   toast('Contrato cancelado.');
@@ -3068,7 +3069,7 @@ async function saveMatchResult(){ return runLocked('match', async () => {
     try {
       await sb.from('ledger_entries').delete().eq('league_id', league.id).ilike('description', `%[MATCH_FLAGS:${savedMatchId}:%`);
       await sb.from('ledger_entries').insert({
-        league_id: league.id, season_id: season.id, club_id: h, entry_type: 'income', amount: 0,
+        league_id: league.id, season_id: season.id, club_id: h, entry_type: 'income', amount: 1,
         description: `Dados da Partida [MATCH_FLAGS:${savedMatchId}:${isDerby}:${hCome}:${aCome}]` + (timingTokens.length ? ` [GOAL_TIMING:${savedMatchId}:${timingTokens.join(',')}]` : '')
       });
     } catch(_) {}
