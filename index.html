@@ -1603,11 +1603,15 @@ function render(){
     if([...spClubSel.options].some(o => o.value === prevSpClub)) spClubSel.value = prevSpClub;
   }
   const activeClubId = spClubSel?.value || displayClubs[0]?.id || null;
+  // Definir os contratos selecionados antes de qualquer bloco que os consulte.
+  const activeClubChosen = activeClubId ? getClubSeasonSponsorIds(activeClubId, season?.id) : [];
   const seasonStarted = isSeasonStarted();
   if($('sponsorLockInfo')){
     $('sponsorLockInfo').textContent = seasonStarted
       ? '🔒 Temporada em andamento — contratos bloqueados. Acompanhe o avanço das metas abaixo.'
-      : '🟢 Pré-temporada aberta — escolha até 2 patrocinadores antes do 1º jogo.';
+      : (activeClubChosen.length >= 2
+        ? '🔒 Dois contratos definidos. As demais propostas ficam ocultas até o encerramento da temporada.'
+        : '🟢 Pré-temporada aberta — escolha até 2 patrocinadores antes do 1º jogo.');
   }
   if($('activeClubSponsorsWrap')){
     $('activeClubSponsorsWrap').innerHTML = activeClubId
@@ -1615,8 +1619,10 @@ function render(){
       : '<div class="empty">Cadastre um clube para gerenciar patrocínios.</div>';
   }
 
-  const activeClubChosen = activeClubId ? getClubSeasonSponsorIds(activeClubId, season?.id) : [];
-  $('sponsorsList').innerHTML = sponsors.map(s => {
+  const sponsorCatalogVisible = activeClubChosen.length >= 2
+    ? sponsors.filter(s => activeClubChosen.includes(s.id))
+    : sponsors;
+  $('sponsorsList').innerHTML = sponsorCatalogVisible.map(s => {
     const isMaster = norm(s.tier).includes('master');
     const tierCls = isMaster ? 'gold' : (norm(s.tier).includes('fornecedor') ? 'cyan' : 'green');
     const goals = getSponsorGoals(s);
@@ -1626,16 +1632,17 @@ function render(){
     return `<div class="sponsor-card ${isMaster ? 'master' : ''}">
       <div style="display:flex;justify-content:space-between;align-items:center;gap:6px">
         <span class="tag ${tierCls}">${esc(s.tier || 'Patrocinador Oficial')}</span>
-        ${Number(s.bonus_amount) > 0 ? `<span class="accent" style="font-size:11px;font-weight:800">Bônus: ${money(s.bonus_amount)}</span>` : ''}
+        ${Number(s.bonus_amount) > 0 ? `<span class="accent" style="font-size:11px;font-weight:800">Bônus-base: ${money(s.bonus_amount)}</span>` : ''}
       </div>
       <div class="sponsor-logo-box">${sponsorLogoHtml(s)}</div>
       <div>
         <b style="font-size:15px;display:block">${esc(s.name)}</b>
         ${cleanDesc ? `<span class="sub" style="display:block;margin-top:3px">${esc(cleanDesc)}</span>` : ''}
+        ${activeClubId ? `<span class="sub" style="display:block;margin-top:4px;color:var(--gold-light)">${esc(sponsorContractRate(activeClubId, s.id).label)} • ${Math.round(sponsorContractRate(activeClubId, s.id).rate*100)}% do valor-base</span>` : ''}
       </div>
       <div class="mission-list">
         ${goals.map((g, idx) => `<div class="mission-box">
-          <div class="mission-top"><span class="mission-name">🎯 Meta ${idx + 1}: ${esc(g.name)}</span><span class="tag gold">${money(Math.round((Number(s.bonus_amount) || 0) / 2))}</span></div>
+          <div class="mission-top"><span class="mission-name">🎯 Meta ${idx + 1}: ${esc(g.name)}</span><span class="tag gold">${money(Math.round((Number(s.bonus_amount) || 0) * (activeClubId ? sponsorContractRate(activeClubId, s.id).rate : 1) / 2))}</span></div>
           <div class="mission-desc">${esc(g.desc)}</div>
         </div>`).join('')}
       </div>
@@ -2296,7 +2303,7 @@ function renderClubSponsorsHtml(clubId, compact = false){
     const sp = sponsors.find(s => s.id === spId);
     if(!sp) return '';
     const goals = getSponsorGoals(sp);
-    const goalBonus = Math.round((Number(sp.bonus_amount) || 0) / 2);
+    const goalBonus = Math.round((Number(sp.bonus_amount) || 0) * getSponsorContractRate(clubId, sp.id, season.id) / 2);
     return `<div class="club-sponsor-slot">
       <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px">
         <div style="display:flex;align-items:center;gap:8px;min-width:0">
@@ -2330,17 +2337,58 @@ function renderClubSponsorsHtml(clubId, compact = false){
   }).join('');
 }
 
+
+// Gestão contratual por clube: reajuste individual baseado no desempenho da temporada anterior.
+function sponsorContractRate(clubId, sponsorId){
+  const previous = seasons.filter(x => x.id !== season?.id && x.status === 'archived')
+    .sort((a,b) => new Date(b.ended_at || b.created_at) - new Date(a.ended_at || a.created_at))[0];
+  if(!previous) return { rate: 1, achieved: 0, previousSponsor: false, label: 'Contrato inicial' };
+  const previousIds = getClubSeasonSponsorIds(clubId, previous.id);
+  const sameSponsor = previousIds.includes(sponsorId);
+  if(sameSponsor){
+    const sp = sponsors.find(x => x.id === sponsorId);
+    if(!sp) return { rate: 1, achieved: 0, previousSponsor: true, label: 'Renovação' };
+    const oldSeason = season; season = previous;
+    const achieved = getSponsorGoals(sp).filter(g => evaluateSponsorMission(g, clubId, statsRows()).achieved).length;
+    season = oldSeason;
+    const rate = achieved === 2 ? 1.15 : (achieved === 1 ? 1.05 : .80);
+    return { rate, achieved, previousSponsor: true,
+      label: achieved === 2 ? 'Renovação premiada +15%' : achieved === 1 ? 'Renovação +5%' : 'Renovação com redução de 20%' };
+  }
+  // Ao trocar de marca, o abatimento depende do aproveitamento global dos contratos anteriores.
+  let totalGoals = 0, totalAchieved = 0;
+  const oldSeason = season; season = previous;
+  previousIds.forEach(id => {
+    const oldSponsor = sponsors.find(x => x.id === id);
+    if(!oldSponsor) return;
+    const outcomes = getSponsorGoals(oldSponsor).map(g => evaluateSponsorMission(g, clubId, statsRows()).achieved);
+    totalGoals += outcomes.length;
+    totalAchieved += outcomes.filter(Boolean).length;
+  });
+  season = oldSeason;
+  const poorPerformance = totalGoals > 0 && totalAchieved / totalGoals < .5;
+  return { rate: poorPerformance ? .80 : 1, achieved: totalAchieved, previousSponsor: false,
+    label: poorPerformance ? 'Novo contrato: desconto de 20% por metas não cumpridas' : 'Novo contrato: valor padrão' };
+}
+function getSponsorContractRate(clubId, sponsorId, seasonId){
+  const tag = `[SPONSOR_RATE:${seasonId}:${clubId}:${sponsorId}:`;
+  const row = ledger.find(x => String(x.description || '').includes(tag));
+  const match = row && String(row.description).match(/\[SPONSOR_RATE:[^:]+:[^:]+:[^:]+:([0-9.]+)\]/);
+  return match ? Math.max(.5, Math.min(1.5, Number(match[1]) || 1)) : 1;
+}
+
 async function signClubSponsor(clubId, sponsorId){
   if(!season) return toast('Crie uma temporada antes de assinar patrocínio.');
-  if(isSeasonStarted()) return toast('A temporada já começou! Os contratos de patrocínio só podem ser escolhidos antes do 1º jogo.');
+  if(season.status !== 'active' || isSeasonStarted()) return toast('Os contratos só podem ser escolhidos na pré-temporada.');
   if(!canManageClub(clubId)) return toast('Você não tem permissão para gerenciar os patrocínios deste clube.');
   const current = getClubSeasonSponsorIds(clubId, season.id);
   if(current.includes(sponsorId)) return toast('Este patrocinador já está assinado com o clube.');
   if(current.length >= 2) return toast('Limite máximo de 2 patrocinadores por clube atingido.');
-  const club = clubs.find(c => c.id === clubId);
-  const sp = sponsors.find(s => s.id === sponsorId);
+  const club = clubs.find(c => c.id === clubId), sp = sponsors.find(s => s.id === sponsorId);
   if(!club || !sp) return;
-  const desc = `Contrato de Patrocínio: ${sp.name} [SPONSOR_SIGN:${season.id}:${clubId}:${sponsorId}]`;
+  const deal = sponsorContractRate(clubId, sponsorId);
+  const rate = Number(deal.rate.toFixed(2));
+  const desc = `Contrato de Patrocínio: ${sp.name} [SPONSOR_SIGN:${season.id}:${clubId}:${sponsorId}] [SPONSOR_RATE:${season.id}:${clubId}:${sponsorId}:${rate}]`;
   const { error } = await sb.from('ledger_entries').insert({
     league_id: league.id, season_id: season.id, club_id: clubId, entry_type: 'income', amount: 1, description: desc
   });
@@ -2349,10 +2397,10 @@ async function signClubSponsor(clubId, sponsorId){
     await sb.from('league_news').insert({
       league_id: league.id, category: 'PATROCÍNIO',
       title: `🤝 ${club.name} fechou com ${sp.name}!`,
-      body: `${club.name} assinou contrato de patrocínio com ${sp.name} (${current.length + 1}/2) valendo até ${money(sp.bonus_amount)} em metas.`
+      body: `${club.name}: ${deal.label}. Bônus por metas ajustado para ${Math.round(rate*100)}% do valor-base (${money(Math.round((Number(sp.bonus_amount)||0)*rate))}).`
     });
   } catch(_) {}
-  toast(`Patrocínio com ${sp.name} assinado!`);
+  toast(`${sp.name} assinado! ${deal.label}.`);
   await loadAll();
 }
 
@@ -2394,7 +2442,9 @@ async function processSponsorPayouts(){
             paidSponsorCache.add(payoutKey);
             continue;
           }
-          const payoutVal = idx === 0 ? Math.floor(totalBonus / 2) : (totalBonus - Math.floor(totalBonus / 2));
+          const contractRate = getSponsorContractRate(c.id, sp.id, season.id);
+          const adjustedBonus = Math.round(totalBonus * contractRate);
+          const payoutVal = idx === 0 ? Math.floor(adjustedBonus / 2) : (adjustedBonus - Math.floor(adjustedBonus / 2));
           if(payoutVal <= 0) continue;
           paidSponsorCache.add(payoutKey);
           const desc = `Bônus Patrocínio (${sp.name} — ${g.name}) ${payoutKey}`;
