@@ -254,6 +254,40 @@ tr:last-child td{border:0}
 }
 .crest.lg{width:44px;height:44px;border-radius:13px;font-size:14px}
 
+/* SPONSORS / PATROCINADORES */
+.sponsor-card{
+  background:linear-gradient(165deg, rgba(20,30,52,0.92), rgba(9,14,26,0.96));
+  border:1px solid rgba(255,255,255,0.09);border-radius:18px;padding:14px;
+  display:flex;flex-direction:column;gap:10px;position:relative;
+  transition:border-color .2s ease,transform .2s ease,box-shadow .2s ease;
+}
+.sponsor-card.master{border-color:rgba(245,158,11,0.48);box-shadow:0 12px 30px rgba(245,158,11,0.08)}
+.sponsor-card:hover{transform:translateY(-2px);border-color:rgba(245,158,11,0.38)}
+.sponsor-logo-box{
+  width:100%;height:112px;border-radius:13px;
+  background:radial-gradient(circle at center, rgba(30,41,59,0.72), rgba(5,9,19,0.94));
+  border:1px solid rgba(255,255,255,0.07);
+  display:grid;place-items:center;padding:12px;overflow:hidden;
+}
+.sponsor-logo-box img{
+  max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block;
+}
+.sponsor-monogram{
+  font-family:'Teko',sans-serif;font-size:34px;font-weight:700;letter-spacing:1px;
+  color:var(--gold-light);text-transform:uppercase;
+}
+.sponsor-strip{
+  display:flex;gap:8px;overflow-x:auto;padding:2px 0;
+}
+.sponsor-chip{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(7,12,24,0.85);border:1px solid rgba(255,255,255,0.09);
+  border-radius:12px;padding:7px 11px;flex-shrink:0;cursor:pointer;
+}
+.sponsor-chip:hover{border-color:var(--border-gold)}
+.sponsor-chip img{width:26px;height:26px;object-fit:contain;border-radius:6px;background:rgba(255,255,255,0.04);padding:2px}
+.sponsor-chip span{font-size:12px;font-weight:700;color:#f8fafc}
+
 /* FUT / EA FC PLAYER CARDS */
 .pavatar{
   width:42px;height:42px;border-radius:12px;object-fit:cover;
@@ -323,7 +357,6 @@ tr:last-child td{border:0}
 .authlinks button:hover{text-decoration:underline}
 .btn:focus-visible,.iconbtn:focus-visible,.nav button:focus-visible,.mobilebar button:focus-visible{outline:2px solid var(--gold-light);outline-offset:3px}
 @media(max-width:680px){.searchbar{margin-bottom:10px}.card{padding:13px}.pcard{padding:12px}.modal{padding:15px}.auth{padding:24px 18px}}
-
 
 /* PLACAR PREMIUM & LISTA DE JOGOS MOBILE */
 .scoreboard-box{
@@ -606,7 +639,6 @@ tr:last-child td{border:0}
   .side-ev-grid{grid-template-columns:1fr}
 }
 
-
 .stat-pill-rank{
   display:inline-flex;
   align-items:center;
@@ -655,6 +687,56 @@ tr:last-child td{border:0}
   text-overflow:ellipsis;
 }
 
+
+/* MISSÕES DE PATROCINADORES & PROGRESSO */
+.mission-list{display:grid;gap:7px;margin-top:4px}
+.mission-box{
+  background:rgba(5,9,19,0.82);border:1px solid rgba(255,255,255,0.08);
+  border-radius:11px;padding:9px 10px;display:grid;gap:5px;
+}
+.mission-box.achieved{
+  background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.45);
+}
+.mission-box.failed{
+  background:rgba(244,63,94,0.12);border-color:rgba(244,63,94,0.45);
+}
+.mission-top{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.mission-name{font-size:12px;font-weight:800;color:#fff}
+.mission-desc{font-size:11px;color:var(--muted);line-height:1.35}
+.mission-prog-row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:2px}
+.mission-bar{flex:1;height:6px;border-radius:99px;background:rgba(255,255,255,0.08);overflow:hidden}
+.mission-bar-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--emerald),var(--gold));transition:width .3s ease}
+.mission-box.achieved .mission-bar-fill{background:#10b981}
+.mission-box.failed .mission-bar-fill{background:#f43f5e}
+.status-achieved{
+  display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:7px;
+  background:rgba(16,185,129,0.22);color:#34d399;border:1px solid rgba(16,185,129,0.5);
+  font-size:10px;font-weight:900;letter-spacing:.3px;white-space:nowrap;
+}
+.status-failed{
+  display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:7px;
+  background:rgba(244,63,94,0.22);color:#fb7185;border:1px solid rgba(244,63,94,0.5);
+  font-size:10px;font-weight:900;letter-spacing:.3px;white-space:nowrap;
+}
+.status-progress{
+  display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:7px;
+  background:rgba(245,158,11,0.16);color:var(--gold-light);border:1px solid rgba(245,158,11,0.35);
+  font-size:10px;font-weight:900;font-variant-numeric:tabular-nums;white-space:nowrap;
+}
+.club-sponsor-slot{
+  background:linear-gradient(155deg, rgba(16,24,44,0.92), rgba(7,11,22,0.96));
+  border:1px solid rgba(245,158,11,0.28);border-radius:14px;padding:11px;margin-top:8px;
+}
+.sb-flags{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:10px;padding-top:8px;
+  border-top:1px solid rgba(255,255,255,0.08);
+}
+.sb-flag{
+  display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:#cbd5e1;
+  background:rgba(5,9,19,0.75);border:1px solid rgba(255,255,255,0.1);padding:5px 9px;border-radius:9px;cursor:pointer;
+}
+.sb-flag input{accent-color:var(--gold);width:14px;height:14px;margin:0}
+
 /* MODALS */
 .modalbg{
   position:fixed;inset:0;background:rgba(2,5,12,0.86);backdrop-filter:blur(8px);
@@ -684,7 +766,7 @@ tr:last-child td{border:0}
     border:1px solid rgba(255,255,255,0.12);border-radius:18px;
     overflow-x:auto;padding:5px 4px;gap:2px;box-shadow:0 12px 35px rgba(0,0,0,0.75);
   }
-  .mobilebar button{flex:1;min-width:50px;background:transparent;color:#94a3b8;font-size:9px;font-weight:800;padding:6px 2px;border-radius:12px}
+  .mobilebar button{flex:1;min-width:48px;background:transparent;color:#94a3b8;font-size:9px;font-weight:800;padding:6px 2px;border-radius:12px}
   .mobilebar button span{display:block;font-size:15px;margin-bottom:2px}
   .mobilebar button.active{color:#fff;background:linear-gradient(135deg, rgba(16,185,129,0.25), rgba(245,158,11,0.2));border:1px solid rgba(245,158,11,0.35)}
   .two,.three{grid-template-columns:1fr}.hero{padding:16px}.hero .big{font-size:30px}
@@ -720,7 +802,10 @@ tr:last-child td{border:0}
    <input id="password" type="password" autocomplete="current-password" placeholder="••••••••" onkeydown="if(event.key==='Enter')submitAuth()">
   </div>
   <button type="button" class="btn" style="width:100%;margin-top:4px" id="authSubmit" onclick="submitAuth()">Entrar na Liga →</button>
-  <div class="authlinks"><button type="button" id="forgotPasswordBtn" onclick="sendPasswordReset()">Esqueci minha senha</button></div>
+  <div class="authlinks" style="justify-content:space-between;align-items:center">
+   <button type="button" onclick="downloadSelfHtml()" style="color:#6ee7b7">⬇️ Baixar index.html</button>
+   <button type="button" id="forgotPasswordBtn" onclick="sendPasswordReset()">Esqueci minha senha</button>
+  </div>
   </div>
   <div id="authRecovery" class="hidden">
    <p class="sub">Crie uma nova senha para recuperar o acesso à sua liga.</p>
@@ -746,6 +831,7 @@ tr:last-child td{border:0}
    <button data-page="clubs">◈ &nbsp; Clubes & Elencos</button>
    <button data-page="matches">⚽ &nbsp; Jogos & Resultados</button>
    <button data-page="finance">💰 &nbsp; Financeiro</button>
+   <button data-page="sponsors">🤝 &nbsp; Patrocinadores</button>
    <button data-page="seasons">▣ &nbsp; Temporadas</button>
    <button data-page="admin">⚙ &nbsp; Painel ADM</button>
   </nav>
@@ -801,6 +887,11 @@ tr:last-child td{border:0}
       <div class="cardhead"><h2>Notícias ao Vivo</h2><button class="btn secondary sm" onclick="go('news')">Todas →</button></div>
       <div id="dashNews"></div>
      </div>
+    </div>
+
+    <div id="dashSponsorsWrap" class="card hidden" style="margin-top:14px">
+     <div class="cardhead"><h2>🤝 Patrocinadores Oficiais</h2><button class="btn secondary sm" onclick="go('sponsors')">Ver todos →</button></div>
+     <div id="dashSponsorsList" class="sponsor-strip"></div>
     </div>
    </section>
 
@@ -906,6 +997,25 @@ tr:last-child td{border:0}
     </div>
    </section>
 
+   <!-- PATROCINADORES -->
+   <section class="section" id="sponsors">
+    <div class="cardhead">
+     <div><h2>Patrocinadores & Metas da Temporada</h2><div class="sub">Cada clube pode escolher até <b>2 patrocinadores</b> antes do início da temporada. Os bônus caem no caixa ao cumprir cada meta.</div></div>
+     <button class="btn gold sm hidden" id="addSponsorBtn" onclick="openSponsorModal()">+ Novo Patrocinador</button>
+    </div>
+
+    <div id="clubSponsorManagerCard" class="card" style="margin-bottom:14px">
+     <div class="cardhead">
+      <div><h2 style="font-size:14px">📋 Contratos do Clube na Temporada</h2><div class="sub" id="sponsorLockInfo">Escolha até 2 patrocinadores antes do 1º jogo da temporada.</div></div>
+      <select id="sponsorTargetClub" onchange="render()" style="padding:8px 11px;border-radius:10px;background:rgba(5,9,19,.85);border:1px solid var(--border);color:var(--text);font-size:12px;font-weight:700"></select>
+     </div>
+     <div id="activeClubSponsorsWrap" class="grid two"></div>
+    </div>
+
+    <div class="cardhead" style="margin-top:6px"><h2 style="font-size:14px">🏢 Patrocinadores Disponíveis na Liga</h2><span class="tag gold">2 metas aleatórias por marca</span></div>
+    <div class="grid three" id="sponsorsList"></div>
+   </section>
+
    <!-- TEMPORADAS -->
    <section class="section" id="seasons">
     <div class="cardhead">
@@ -940,7 +1050,10 @@ tr:last-child td{border:0}
      <div class="card">
       <h2>Convite & Participantes</h2>
       <div class="field"><label>Código de Convite da Liga</label><input id="adminInvite" readonly></div>
-      <button class="btn secondary sm" onclick="copyInvite()">Copiar Convite</button>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+       <button class="btn secondary sm" onclick="copyInvite()">Copiar Convite</button>
+       <button class="btn gold sm" onclick="downloadSelfHtml()">⬇️ Baixar index.html</button>
+      </div>
       <div class="field" style="margin-top:14px"><label>Nome da Liga</label><input id="adminLeagueName"></div>
       <button class="btn secondary sm" onclick="saveLeagueName()">Atualizar Nome</button>
       <hr style="border-color:var(--border);margin:16px 0">
@@ -960,10 +1073,48 @@ tr:last-child td{border:0}
   <button data-page="clubs"><span>◈</span>Clubes</button>
   <button data-page="matches"><span>⚽</span>Jogos</button>
   <button data-page="finance"><span>💰</span>Caixa</button>
+  <button data-page="sponsors"><span>🤝</span>Patroc.</button>
   <button data-page="seasons"><span>▣</span>Anos</button>
   <button data-page="admin"><span>⚙</span>ADM</button>
  </div>
 </div>
+
+<!-- MODAL: NOVO / EDITAR PATROCINADOR (ADM) -->
+<div class="modalbg" id="sponsorModal"><div class="modal"><h3 id="sponsorModalTitle">Novo Patrocinador</h3><input type="hidden" id="editSponsorId">
+ <div class="field"><label>Logo / Foto do Patrocinador (Galeria do celular ou Link)</label>
+  <div class="sponsor-logo-box" id="spLogoPreview" style="height:96px;margin-bottom:6px"></div>
+  <input type="file" id="spLogoFile" accept="image/*" onchange="handleSponsorPhotoFile(this)">
+  <div style="display:flex;gap:6px">
+   <input id="spLogoUrl" placeholder="Ou cole o link da foto (opcional)" oninput="updateSponsorLogoPreview()">
+   <button type="button" class="btn secondary sm" onclick="$('spLogoUrl').value='';$('spLogoFile').value='';updateSponsorLogoPreview()">Limpar</button>
+  </div>
+ </div>
+ <div class="field"><label>Nome da Marca / Patrocinador</label><input id="spName" placeholder="Ex.: Nike, Betano, Emirates..." oninput="updateSponsorLogoPreview()"></div>
+ <div class="grid two">
+  <div class="field"><label>Categoria / Cota</label>
+   <select id="spTier">
+    <option value="Patrocinador Máster">Patrocinador Máster</option>
+    <option value="Patrocinador Oficial" selected>Patrocinador Oficial</option>
+    <option value="Fornecedor Esportivo">Fornecedor Esportivo</option>
+    <option value="Apoiador">Apoiador</option>
+   </select>
+  </div>
+  <div class="field"><label>Bônus Total pelas 2 Metas (R$)</label><input id="spBonus" type="number" min="0" value="500000" oninput="updateSponsorMissionsPreview()"></div>
+ </div>
+
+ <div class="card" style="background:rgba(5,9,18,0.85);margin-bottom:12px;padding:12px">
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px">
+   <span class="eyebrow" style="color:var(--gold-light)">🎯 2 METAS DO PATROCINADOR (50% CADA)</span>
+   <button type="button" class="btn secondary sm" onclick="randomizeSponsorGoals()">🎲 Sortear 2 Aleatórias</button>
+  </div>
+  <div class="field" style="margin-bottom:8px"><label>Meta 1</label><select id="spGoal1" onchange="updateSponsorMissionsPreview()"></select></div>
+  <div class="field" style="margin-bottom:6px"><label>Meta 2</label><select id="spGoal2" onchange="updateSponsorMissionsPreview()"></select></div>
+  <div id="spGoalsPreview" class="sub" style="font-size:11px"></div>
+ </div>
+
+ <div class="field"><label>Observação Extra (Opcional)</label><input id="spDesc" placeholder="Ex.: Válido até o fim da temporada"></div>
+ <div class="modalfoot"><button class="btn danger hidden" id="delSponsorBtn" style="margin-right:auto" onclick="deleteSponsor()">Excluir</button><button class="btn secondary" onclick="closeModal('sponsorModal')">Cancelar</button><button class="btn gold" onclick="saveSponsor()">Salvar Patrocinador</button></div>
+</div></div>
 
 <!-- MODAL: NOVO / EDITAR CLUBE -->
 <div class="modalbg" id="clubModal"><div class="modal"><h3 id="clubModalTitle">Novo Clube</h3><input type="hidden" id="editClubId">
@@ -1075,6 +1226,11 @@ tr:last-child td{border:0}
     </div>
    </div>
   </div>
+  <div class="sb-flags">
+   <label class="sb-flag"><input type="checkbox" id="mIsDerby"> 🔥 Clássico</label>
+   <label class="sb-flag"><input type="checkbox" id="mHomeComeback"> 🔄 Virada Casa</label>
+   <label class="sb-flag"><input type="checkbox" id="mAwayComeback"> 🔄 Virada Visitante</label>
+  </div>
  </div>
 
  <div class="sides-grid">
@@ -1122,11 +1278,10 @@ const SUPABASE_URL = 'https://wfglcfljgiguidaoolul.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndmZ2xjZmxqZ2lndWlkYW9vbHVsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ4NDI1MDQsImV4cCI6MjExMDQxODUwNH0.O8nalwwGH5icfE--VTq3JQtRPtmptqL9opdxMsCwyHU';
 
 let sb = null, user = null, league = null, membership = null, season = null;
-let clubs = [], players = [], matches = [], matchEvents = [], transfers = [], proposals = [], ledger = [], seasons = [], members = [], news = [], channels = [];
+let clubs = [], players = [], matches = [], matchEvents = [], transfers = [], proposals = [], ledger = [], seasons = [], members = [], news = [], sponsors = [], channels = [];
 let authMode = 'login';
 let reloadTimer = null;
 const norm = value => String(value ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
-
 
 let busyOps = new Set();
 async function runLocked(key, fn){
@@ -1215,7 +1370,6 @@ async function submitAuth(){
     btn.textContent = origText;
   }
 }
-
 
 function showRecoveryMode(){
   $('authScreen').classList.remove('hidden'); $('app').classList.add('hidden');
@@ -1328,7 +1482,8 @@ async function loadAll(){
     sb.from('transfer_proposals').select('*').eq('league_id', id).order('created_at', { ascending: false }),
     sb.from('ledger_entries').select('*').eq('league_id', id).order('created_at', { ascending: false }),
     sb.from('league_members').select('role,user_id,profiles(email)').eq('league_id', id),
-    sb.from('league_news').select('*').eq('league_id', id).order('created_at', { ascending: false }).limit(30)
+    sb.from('league_news').select('*').eq('league_id', id).order('created_at', { ascending: false }).limit(30),
+    sb.from('league_sponsors').select('*').eq('league_id', id).order('created_at', { ascending: false })
   ]);
   for(let i = 0; i < q.length; i++){
     if(q[i].error){ console.warn('Falha ao carregar dados da liga:', q[i].error); toast('Falha ao carregar dados: ' + q[i].error.message); }
@@ -1345,15 +1500,17 @@ async function loadAll(){
   ledger = q[8].data || [];
   members = q[9].data || [];
   news = q[10].data || [];
+  sponsors = q[11].data || [];
   render();
   $('noLeague').classList.add('hidden');
   $('leagueContent').classList.remove('hidden');
   subscribe();
+  processSponsorPayouts();
 }
 
 function subscribe(){
   if(channels.length) return;
-  ['clubs','players','matches','match_events','transfers','transfer_proposals','ledger_entries','seasons','league_news','leagues'].forEach(table => {
+  ['clubs','players','matches','match_events','transfers','transfer_proposals','ledger_entries','seasons','league_news','league_sponsors','leagues'].forEach(table => {
     const filter = table === 'leagues' ? 'id=eq.' + league.id : 'league_id=eq.' + league.id;
     const ch = sb.channel('rt-' + table + '-' + league.id).on('postgres_changes', { event: '*', schema: 'public', table, filter }, () => { clearTimeout(reloadTimer); reloadTimer = setTimeout(() => loadAll(), 350); }).subscribe();
     channels.push(ch);
@@ -1393,6 +1550,11 @@ function crest(c, large = false){
   if(c?.logo_url) return `<img class="${cls}" src="${esc(c.logo_url)}" alt="${esc(c?.name || '')}" onerror="this.outerHTML='<span class=\'${cls}\'>${initials}</span>'">`;
   return `<span class="${cls}">${initials}</span>`;
 }
+function sponsorLogoHtml(s){
+  const initials = esc((s?.name || 'PT').split(/\s+/).map(x => x[0]).join('').slice(0, 3).toUpperCase());
+  if(s?.logo_url) return `<img src="${esc(s.logo_url)}" alt="${esc(s?.name || '')}" onerror="this.outerHTML='<span class=\'sponsor-monogram\'>${initials}</span>'">`;
+  return `<span class="sponsor-monogram">${initials}</span>`;
+}
 
 function render(){
   if(!league) return;
@@ -1423,6 +1585,67 @@ function render(){
     $('dashNews').innerHTML = '<div class="empty">Nenhuma notícia registrada ainda.</div>';
     $('allNewsList').innerHTML = '<div class="empty">As notícias aparecerão automaticamente conforme os jogos e negócios acontecerem.</div>';
   }
+
+  // Vitrine rápida de Patrocinadores no Início
+  $('dashSponsorsWrap').classList.toggle('hidden', sponsors.length === 0);
+  if(sponsors.length){
+    $('dashSponsorsList').innerHTML = sponsors.map(s => `<div class="sponsor-chip" onclick="go('sponsors')">${s.logo_url ? `<img src="${esc(s.logo_url)}" alt="${esc(s.name)}" onerror="this.style.display='none'">` : ''}<span>${esc(s.name)}</span></div>`).join('');
+  }
+
+  // Aba Patrocinadores & Contratos por Clube
+  $('addSponsorBtn').classList.toggle('hidden', !isAdmin());
+  const spClubSel = $('sponsorTargetClub');
+  const manageableClubs = isAdmin() ? clubs : clubs.filter(c => c.owner_user_id === user.id);
+  const displayClubs = manageableClubs.length ? manageableClubs : clubs;
+  if(spClubSel){
+    const prevSpClub = spClubSel.value;
+    spClubSel.innerHTML = displayClubs.map(c => `<option value="${c.id}">${esc(c.name)} (${getClubSeasonSponsorIds(c.id, season?.id).length}/2)</option>`).join('');
+    if([...spClubSel.options].some(o => o.value === prevSpClub)) spClubSel.value = prevSpClub;
+  }
+  const activeClubId = spClubSel?.value || displayClubs[0]?.id || null;
+  const seasonStarted = isSeasonStarted();
+  if($('sponsorLockInfo')){
+    $('sponsorLockInfo').textContent = seasonStarted
+      ? '🔒 Temporada em andamento — contratos bloqueados. Acompanhe o avanço das metas abaixo.'
+      : '🟢 Pré-temporada aberta — escolha até 2 patrocinadores antes do 1º jogo.';
+  }
+  if($('activeClubSponsorsWrap')){
+    $('activeClubSponsorsWrap').innerHTML = activeClubId
+      ? renderClubSponsorsHtml(activeClubId, false)
+      : '<div class="empty">Cadastre um clube para gerenciar patrocínios.</div>';
+  }
+
+  const activeClubChosen = activeClubId ? getClubSeasonSponsorIds(activeClubId, season?.id) : [];
+  $('sponsorsList').innerHTML = sponsors.map(s => {
+    const isMaster = norm(s.tier).includes('master');
+    const tierCls = isMaster ? 'gold' : (norm(s.tier).includes('fornecedor') ? 'cyan' : 'green');
+    const goals = getSponsorGoals(s);
+    const cleanDesc = cleanSponsorDesc(s);
+    const alreadySigned = activeClubChosen.includes(s.id);
+    const canSign = activeClubId && canManageClub(activeClubId) && !seasonStarted && !alreadySigned && activeClubChosen.length < 2;
+    return `<div class="sponsor-card ${isMaster ? 'master' : ''}">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:6px">
+        <span class="tag ${tierCls}">${esc(s.tier || 'Patrocinador Oficial')}</span>
+        ${Number(s.bonus_amount) > 0 ? `<span class="accent" style="font-size:11px;font-weight:800">Bônus: ${money(s.bonus_amount)}</span>` : ''}
+      </div>
+      <div class="sponsor-logo-box">${sponsorLogoHtml(s)}</div>
+      <div>
+        <b style="font-size:15px;display:block">${esc(s.name)}</b>
+        ${cleanDesc ? `<span class="sub" style="display:block;margin-top:3px">${esc(cleanDesc)}</span>` : ''}
+      </div>
+      <div class="mission-list">
+        ${goals.map((g, idx) => `<div class="mission-box">
+          <div class="mission-top"><span class="mission-name">🎯 Meta ${idx + 1}: ${esc(g.name)}</span><span class="tag gold">${money(Math.round((Number(s.bonus_amount) || 0) / 2))}</span></div>
+          <div class="mission-desc">${esc(g.desc)}</div>
+        </div>`).join('')}
+      </div>
+      <div style="display:flex;gap:6px;margin-top:auto;flex-wrap:wrap">
+        ${alreadySigned ? `<span class="tag green" style="flex:1;justify-content:center;padding:8px">✅ Assinado (${esc(clubs.find(c => c.id === activeClubId)?.name || '')})</span>` : ''}
+        ${canSign ? `<button class="btn sm" style="flex:1" onclick="signClubSponsor('${activeClubId}','${s.id}')">✍️ Assinar Patrocínio</button>` : ''}
+        ${isAdmin() ? `<button class="btn secondary sm" onclick="openSponsorModal('${s.id}')">✏️</button><button class="btn danger sm" onclick="deleteSponsorById('${s.id}')" title="Excluir patrocinador">🗑️</button>` : ''}
+      </div>
+    </div>`;
+  }).join('') || `<div class="empty" style="grid-column:1/-1">${isAdmin() ? 'Nenhum patrocinador cadastrado ainda. Toque em "+ Novo Patrocinador" para adicionar marcas e fotos.' : 'Nenhum patrocinador oficial cadastrado na liga ainda.'}</div>`;
 
   $('miniTable').innerHTML = rows.map((r, i) => `<tr><td>${i + 1}</td><td><span class="club">${crest(r)}${esc(r.name)}</span></td><td class="accent"><b>${r.pts}</b></td><td>${r.j}</td><td>${r.sg > 0 ? '+' : ''}${r.sg}</td></tr>`).join('') || '<tr><td colspan="5" class="empty">Cadastre clubes.</td></tr>';
   $('fullTable').innerHTML = rows.map((r, i) => `<tr><td><b>${i + 1}</b></td><td><span class="club">${crest(r)}${esc(r.name)}</span></td><td class="accent"><b>${r.pts}</b></td><td>${r.j}</td><td>${r.v}</td><td>${r.e}</td><td>${r.d}</td><td>${r.gp}</td><td>${r.gc}</td><td>${r.sg > 0 ? '+' : ''}${r.sg}</td></tr>`).join('') || '<tr><td colspan="10" class="empty">Sem clubes.</td></tr>';
@@ -1532,6 +1755,7 @@ function render(){
         <div><span>CAIXA DISPONÍVEL</span><strong class="accent">${money(c.balance)}</strong></div>
         <div><span>ELENCO / OVR MÉDIO</span><strong>${ps.length} atletas • ${avg}</strong></div>
       </div>
+      ${getClubSeasonSponsorIds(c.id, season?.id).length ? `<div style="margin-bottom:10px"><div class="eyebrow" style="margin-bottom:4px;color:var(--gold-light)">🤝 PATROCINADORES & METAS</div>${renderClubSponsorsHtml(c.id, true)}</div>` : ''}
       ${ps.map(p => `<div class="fixture"><div class="pmeta">${playerAvatar(p)}<div><b>${esc(p.name)}</b><span class="sub">${esc(p.position)} • Multa: ${money(p.release_clause || p.market_value * 4)}</span></div></div><span class="ovr ${p.overall >= 85 ? 'gold' : ''}">${p.overall}</span></div>`).join('') || '<div class="empty">Elenco vazio.</div>'}
     </div>`;
   }).join('') || `<div class="empty">${clubQuery ? 'Nenhum clube encontrado para essa busca.' : 'Cadastre os clubes da liga.'}</div>`;
@@ -1610,6 +1834,7 @@ function go(page){
     clubs: ['Clubes & Elencos', 'Caixas disponíveis e planteis.'],
     matches: ['Jogos & Resultados', 'Tabela sorteada e placares.'],
     finance: ['Financeiro', 'Extrato de receitas, bônus e multas.'],
+    sponsors: ['Patrocinadores', 'Marcas oficiais e parceiros da liga.'],
     seasons: ['Temporadas', 'Premiações e valorização de passe.'],
     admin: ['Painel ADM', 'Configure valores, prêmios e regras.']
   };
@@ -1641,6 +1866,694 @@ function setMatchTab(t, btn){
   $('matchesPlayed').classList.toggle('hidden', t !== 'played');
   btn.parentElement.querySelectorAll('button').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
+}
+
+
+/* CATÁLOGO OFICIAL DAS METAS DE PATROCINADORES */
+const SPONSOR_MISSIONS = [
+  { id: 'muralha', num: 1, name: 'Muralha Intransponível', desc: 'Ficar 5 jogos consecutivos sem perder', target: 5 },
+  { id: 'maquina_gols', num: 2, name: 'Máquina de Gols', desc: 'Marcar 3 ou mais gols em uma partida', target: 3 },
+  { id: 'invencibilidade', num: 3, name: 'Invencibilidade', desc: 'Ficar 8 jogos consecutivos sem perder', target: 8 },
+  { id: 'ataque_avassalador', num: 4, name: 'Ataque Avassalador', desc: 'Marcar 10 gols em 3 partidas consecutivas', target: 10 },
+  { id: 'rei_viradas', num: 5, name: 'Rei das Viradas', desc: 'Vencer 2 partidas após sair perdendo', target: 2 },
+  { id: 'dominio_absoluto', num: 6, name: 'Domínio Absoluto', desc: 'Vencer uma partida por 4 ou mais gols', target: 4 },
+  { id: 'especialista_classicos', num: 7, name: 'Especialista em Clássicos', desc: 'Vencer 2 clássicos no campeonato', target: 2 },
+  { id: 'defesa_aco', num: 8, name: 'Defesa de Aço', desc: 'Sofrer no máximo 5 gols em 10 jogos', target: 10 },
+  { id: 'artilharia_pesada', num: 9, name: 'Artilharia Pesada', desc: 'Ter 3 jogadores diferentes marcando gols no mesmo jogo', target: 3 },
+  { id: 'comeco_avassalador', num: 10, name: 'Começo Avassalador', desc: 'Vencer as 3 primeiras partidas', target: 3 },
+  { id: 'visitante_indesejado', num: 11, name: 'Visitante Indesejado', desc: 'Vencer 3 partidas consecutivas fora de casa', target: 3 },
+  { id: 'fortaleza_casa', num: 12, name: 'Fortaleza em Casa', desc: 'Ficar 5 jogos consecutivos sem perder como mandante', target: 5 },
+  { id: 'garcom_elite', num: 13, name: 'Garçom de Elite', desc: 'Ter um jogador com 5 assistências no campeonato', target: 5 },
+  { id: 'hat_trick', num: 14, name: 'Hat-trick Premiado', desc: 'Um jogador marcar 3 gols em uma única partida', target: 3 },
+  { id: 'poder_reacao', num: 15, name: 'Poder de Reação', desc: 'Marcar gols nos últimos 15 minutos em 3 partidas', target: 3 },
+  { id: 'ataque_equilibrado', num: 16, name: 'Ataque Equilibrado', desc: 'Ter 5 jogadores diferentes com pelo menos 2 gols', target: 5 },
+  { id: 'campeao_regularidade', num: 17, name: 'Campeão de Regularidade', desc: 'Pontuar em 10 partidas consecutivas', target: 10 },
+  { id: 'dobradinha_ouro', num: 18, name: 'Dobradinha de Ouro', desc: 'Ter dois jogadores com pelo menos 5 gols cada', target: 2 },
+  { id: 'gol_relampago', num: 19, name: 'Gol Relâmpago', desc: 'Marcar antes dos 15 minutos em 3 partidas', target: 3 },
+  { id: 'reta_final', num: 20, name: 'Reta Final de Campeão', desc: 'Vencer as últimas 3 partidas do campeonato', target: 3 },
+  { id: 'campeao_temporada', num: 21, name: 'Campeão da Temporada', desc: 'Ser campeão do campeonato (pago ao ser matematicamente campeão)', target: 1 }
+];
+
+const paidSponsorCache = new Set();
+
+function downloadSelfHtml(){
+  try {
+    const docHtml = '<!doctype html>\n' + document.documentElement.outerHTML;
+    const blob = new Blob([docHtml], { type: 'text/html;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'index.html';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 4000);
+    toast('Download do index.html iniciado!');
+  } catch(e){
+    toast('Use o menu do navegador (⋮) -> Download para salvar o index.html.');
+  }
+}
+
+function getSponsorGoals(sp){
+  const desc = String(sp?.description || '');
+  const m = desc.match(/\[\[GOALS:([a-z0-9_,]+)\]\]/i);
+  if(m){
+    const ids = m[1].split(',').map(x => x.trim()).filter(Boolean);
+    const found = ids.map(id => SPONSOR_MISSIONS.find(x => x.id === id)).filter(Boolean);
+    if(found.length >= 2) return found.slice(0, 2);
+  }
+  const seed = String(sp?.id || sp?.name || 'sp').split('').reduce((a, c) => a + c.charCodeAt(0), 0);
+  const g1 = SPONSOR_MISSIONS[seed % SPONSOR_MISSIONS.length];
+  const g2 = SPONSOR_MISSIONS[(seed * 7 + 3) % SPONSOR_MISSIONS.length];
+  return [g1, g2.id === g1.id ? SPONSOR_MISSIONS[(seed + 1) % SPONSOR_MISSIONS.length] : g2];
+}
+
+function cleanSponsorDesc(sp){
+  return String(sp?.description || '').replace(/\s*\[\[GOALS:[^\]]+\]\]/g, '').trim();
+}
+
+function getMatchFlags(matchId){
+  if(!matchId) return { derby: false, homeComeback: false, awayComeback: false };
+  const tag = `[MATCH_FLAGS:${matchId}:`;
+  const entry = ledger.find(l => String(l.description || '').includes(tag));
+  if(entry){
+    const m = String(entry.description).match(/\[MATCH_FLAGS:[^:]+:([01]):([01]):([01])\]/);
+    if(m) return { derby: m[1] === '1', homeComeback: m[2] === '1', awayComeback: m[3] === '1' };
+  }
+  try {
+    const raw = localStorage.getItem('ml_mflags_' + matchId);
+    if(raw) return JSON.parse(raw);
+  } catch(_) {}
+  return { derby: false, homeComeback: false, awayComeback: false };
+}
+
+function getGoalTiming(ev){
+  if(ev?.minute != null){
+    if(Number(ev.minute) <= 15) return 'early';
+    if(Number(ev.minute) >= 75) return 'late';
+  }
+  if(!ev?.match_id) return 'normal';
+  const entry = ledger.find(l => String(l.description || '').includes(`[GOAL_TIMING:${ev.match_id}:`));
+  if(entry){
+    const m = String(entry.description).match(/\[GOAL_TIMING:[^:]+:([^\]]+)\]/);
+    if(m){
+      const tokens = m[1].split(',');
+      const hit = tokens.find(t => t.startsWith(ev.player_id + ':'));
+      if(hit) return hit.split(':')[1] || 'normal';
+    }
+  }
+  return 'normal';
+}
+
+function getClubSeasonSponsorIds(clubId, seasonId){
+  if(!clubId || !seasonId) return [];
+  const prefixSign = `[SPONSOR_SIGN:${seasonId}:${clubId}:`;
+  const prefixUnsign = `[SPONSOR_UNSIGN:${seasonId}:${clubId}:`;
+  const chron = ledger.slice().reverse();
+  const chosen = [];
+  chron.forEach(l => {
+    const d = String(l.description || '');
+    if(d.includes(prefixSign)){
+      const m = d.match(/\[SPONSOR_SIGN:[^:]+:[^:]+:([^\]]+)\]/);
+      if(m && !chosen.includes(m[1]) && sponsors.some(s => s.id === m[1])) chosen.push(m[1]);
+    } else if(d.includes(prefixUnsign)){
+      const m = d.match(/\[SPONSOR_UNSIGN:[^:]+:[^:]+:([^\]]+)\]/);
+      if(m){
+        const idx = chosen.indexOf(m[1]);
+        if(idx !== -1) chosen.splice(idx, 1);
+      }
+    }
+  });
+  return chosen.slice(0, 2);
+}
+
+function isSeasonStarted(){
+  if(!season) return false;
+  return matches.some(m => m.season_id === season.id && m.status === 'played' && m.home_goals !== null);
+}
+
+function evaluateSponsorMission(mission, clubId, rowsCache){
+  const seasonMatches = matches
+    .filter(m => m.season_id === season?.id)
+    .slice()
+    .sort((a, b) => (a.match_order || 0) - (b.match_order || 0) || (a.round_number || 0) - (b.round_number || 0));
+
+  const clubMatches = seasonMatches.filter(m => m.home_club_id === clubId || m.away_club_id === clubId);
+  const played = clubMatches.filter(m => m.status === 'played' && m.home_goals !== null);
+  const remaining = clubMatches.filter(m => m.status !== 'played' || m.home_goals === null);
+
+  const defaultPlanned = Math.max(10, (clubs.length > 1 ? (clubs.length - 1) * 2 : 10));
+  const rem = clubMatches.length > 0 ? remaining.length : Math.max(0, defaultPlanned - played.length);
+  const totalPlanned = played.length + rem;
+
+  const gameRecords = played.map(m => {
+    const isHome = m.home_club_id === clubId;
+    const gf = Number(isHome ? m.home_goals : m.away_goals);
+    const ga = Number(isHome ? m.away_goals : m.home_goals);
+    const res = gf > ga ? 'W' : (gf === ga ? 'D' : 'L');
+    const flags = getMatchFlags(m.id);
+    const evs = matchEvents.filter(e => e.match_id === m.id && e.club_id === clubId);
+    const goals = evs.filter(e => e.event_type === 'goal');
+    return {
+      m, isHome, gf, ga, res,
+      derby: flags.derby,
+      comeback: isHome ? flags.homeComeback : flags.awayComeback,
+      goals,
+      earlyGoal: goals.some(g => getGoalTiming(g) === 'early'),
+      lateGoal: goals.some(g => getGoalTiming(g) === 'late')
+    };
+  });
+
+  const seasonClubGoals = matchEvents.filter(e => e.season_id === season?.id && e.club_id === clubId && e.event_type === 'goal');
+  const target = mission.target;
+  let current = 0;
+  let achieved = false;
+  let failed = false;
+  let extraNote = '';
+
+  switch(mission.id){
+    case 'muralha': {
+      let streak = 0;
+      for(const g of gameRecords){
+        if(g.res !== 'L'){ streak++; if(streak >= 5) achieved = true; }
+        else streak = 0;
+      }
+      current = achieved ? 5 : streak;
+      if(!achieved && current + rem < 5) failed = true;
+      break;
+    }
+    case 'maquina_gols': {
+      const maxG = gameRecords.reduce((mx, g) => Math.max(mx, g.gf), 0);
+      achieved = maxG >= 3;
+      current = Math.min(3, maxG);
+      if(!achieved && rem === 0) failed = true;
+      break;
+    }
+    case 'invencibilidade': {
+      let streak = 0;
+      for(const g of gameRecords){
+        if(g.res !== 'L'){ streak++; if(streak >= 8) achieved = true; }
+        else streak = 0;
+      }
+      current = achieved ? 8 : streak;
+      if(!achieved && current + rem < 8) failed = true;
+      break;
+    }
+    case 'ataque_avassalador': {
+      let best3 = 0;
+      for(let i = 0; i <= gameRecords.length - 3; i++){
+        const s = gameRecords[i].gf + gameRecords[i + 1].gf + gameRecords[i + 2].gf;
+        if(s > best3) best3 = s;
+      }
+      if(best3 >= 10){
+        achieved = true;
+        current = 10;
+      } else {
+        const tail = gameRecords.slice(-2).reduce((a, g) => a + g.gf, 0);
+        current = Math.min(9, Math.max(best3, rem > 0 ? tail : best3));
+        if(totalPlanned < 3 || rem === 0) failed = true;
+      }
+      break;
+    }
+    case 'rei_viradas': {
+      const cnt = gameRecords.filter(g => g.res === 'W' && g.comeback).length;
+      achieved = cnt >= 2;
+      current = Math.min(2, cnt);
+      if(!achieved && current + rem < 2) failed = true;
+      break;
+    }
+    case 'dominio_absoluto': {
+      const maxDiff = gameRecords.reduce((mx, g) => Math.max(mx, g.gf - g.ga), 0);
+      achieved = maxDiff >= 4;
+      current = Math.min(4, Math.max(0, maxDiff));
+      if(!achieved && rem === 0) failed = true;
+      break;
+    }
+    case 'especialista_classicos': {
+      const wins = gameRecords.filter(g => g.derby && g.res === 'W').length;
+      const remDerbies = remaining.filter(m => getMatchFlags(m.id).derby).length;
+      achieved = wins >= 2;
+      current = Math.min(2, wins);
+      if(!achieved && (rem === 0 || (clubMatches.length > 0 && remaining.some(m => getMatchFlags(m.id).derby) && wins + remDerbies < 2))) failed = true;
+      break;
+    }
+    case 'defesa_aco': {
+      if(totalPlanned < 10){
+        failed = true;
+        current = gameRecords.length;
+      } else if(gameRecords.length >= 10){
+        for(let i = 0; i <= gameRecords.length - 10; i++){
+          const conceded = gameRecords.slice(i, i + 10).reduce((a, g) => a + g.ga, 0);
+          if(conceded <= 5) achieved = true;
+        }
+        const last10Conceded = gameRecords.slice(-10).reduce((a, g) => a + g.ga, 0);
+        current = 10;
+        extraNote = `${last10Conceded}/5 gols sofridos`;
+        if(!achieved && rem === 0) failed = true;
+      } else {
+        const conceded = gameRecords.reduce((a, g) => a + g.ga, 0);
+        current = gameRecords.length;
+        extraNote = `${conceded}/5 gols sofridos`;
+        if(totalPlanned === 10 && conceded > 5) failed = true;
+      }
+      break;
+    }
+    case 'artilharia_pesada': {
+      let maxDistinct = 0;
+      for(const g of gameRecords){
+        const distinct = new Set(g.goals.map(x => x.player_id)).size;
+        if(distinct > maxDistinct) maxDistinct = distinct;
+      }
+      achieved = maxDistinct >= 3;
+      current = Math.min(3, maxDistinct);
+      if(!achieved && rem === 0) failed = true;
+      break;
+    }
+    case 'comeco_avassalador': {
+      const first3 = gameRecords.slice(0, 3);
+      const nonWin = first3.some(g => g.res !== 'W');
+      if(nonWin || totalPlanned < 3){
+        failed = true;
+        current = first3.filter(g => g.res === 'W').length;
+      } else if(first3.length === 3){
+        achieved = true;
+        current = 3;
+      } else {
+        current = first3.length;
+      }
+      break;
+    }
+    case 'visitante_indesejado': {
+      const awayGames = gameRecords.filter(g => !g.isHome);
+      const remAway = clubMatches.length > 0 ? remaining.filter(m => m.away_club_id === clubId).length : Math.ceil(rem / 2);
+      let streak = 0;
+      for(const g of awayGames){
+        if(g.res === 'W'){ streak++; if(streak >= 3) achieved = true; }
+        else streak = 0;
+      }
+      current = achieved ? 3 : streak;
+      if(!achieved && current + remAway < 3) failed = true;
+      break;
+    }
+    case 'fortaleza_casa': {
+      const homeGames = gameRecords.filter(g => g.isHome);
+      const remHome = clubMatches.length > 0 ? remaining.filter(m => m.home_club_id === clubId).length : Math.ceil(rem / 2);
+      let streak = 0;
+      for(const g of homeGames){
+        if(g.res !== 'L'){ streak++; if(streak >= 5) achieved = true; }
+        else streak = 0;
+      }
+      current = achieved ? 5 : streak;
+      if(!achieved && current + remHome < 5) failed = true;
+      break;
+    }
+    case 'garcom_elite': {
+      const byPlayer = {};
+      seasonClubGoals.forEach(e => {
+        if(e.assist_player_id) byPlayer[e.assist_player_id] = (byPlayer[e.assist_player_id] || 0) + 1;
+      });
+      const maxA = Math.max(0, ...Object.values(byPlayer));
+      achieved = maxA >= 5;
+      current = Math.min(5, maxA);
+      if(!achieved && rem === 0) failed = true;
+      break;
+    }
+    case 'hat_trick': {
+      let maxHat = 0;
+      for(const g of gameRecords){
+        const perP = {};
+        g.goals.forEach(x => { perP[x.player_id] = (perP[x.player_id] || 0) + 1; });
+        maxHat = Math.max(maxHat, ...Object.values(perP), 0);
+      }
+      achieved = maxHat >= 3;
+      current = Math.min(3, maxHat);
+      if(!achieved && rem === 0) failed = true;
+      break;
+    }
+    case 'poder_reacao': {
+      const cnt = gameRecords.filter(g => g.lateGoal).length;
+      achieved = cnt >= 3;
+      current = Math.min(3, cnt);
+      if(!achieved && current + rem < 3) failed = true;
+      break;
+    }
+    case 'ataque_equilibrado': {
+      const perP = {};
+      seasonClubGoals.forEach(e => { perP[e.player_id] = (perP[e.player_id] || 0) + 1; });
+      const qual = Object.values(perP).filter(v => v >= 2).length;
+      achieved = qual >= 5;
+      current = Math.min(5, qual);
+      if(!achieved && rem === 0) failed = true;
+      break;
+    }
+    case 'campeao_regularidade': {
+      let streak = 0;
+      for(const g of gameRecords){
+        if(g.res !== 'L'){ streak++; if(streak >= 10) achieved = true; }
+        else streak = 0;
+      }
+      current = achieved ? 10 : streak;
+      if(!achieved && current + rem < 10) failed = true;
+      break;
+    }
+    case 'dobradinha_ouro': {
+      const perP = {};
+      seasonClubGoals.forEach(e => { perP[e.player_id] = (perP[e.player_id] || 0) + 1; });
+      const qual = Object.values(perP).filter(v => v >= 5).length;
+      achieved = qual >= 2;
+      current = Math.min(2, qual);
+      if(!achieved && rem === 0) failed = true;
+      break;
+    }
+    case 'gol_relampago': {
+      const cnt = gameRecords.filter(g => g.earlyGoal).length;
+      achieved = cnt >= 3;
+      current = Math.min(3, cnt);
+      if(!achieved && current + rem < 3) failed = true;
+      break;
+    }
+    case 'reta_final': {
+      if(totalPlanned < 3){
+        failed = true;
+      } else {
+        const startIdx = totalPlanned - 3;
+        const tailGames = gameRecords.slice(startIdx);
+        if(tailGames.some(g => g.res !== 'W')){
+          failed = true;
+          current = tailGames.filter(g => g.res === 'W').length;
+        } else if(tailGames.length === 3){
+          achieved = true;
+          current = 3;
+        } else {
+          current = tailGames.length;
+        }
+      }
+      break;
+    }
+    case 'campeao_temporada': {
+      const rows = rowsCache || statsRows();
+      const myRow = rows.find(r => r.id === clubId);
+      const others = rows.filter(r => r.id !== clubId);
+      if(myRow && others.length && (gameRecords.length > 0 || season?.status === 'archived')){
+        const myMax = myRow.pts + rem * 3;
+        const bestOtherCur = Math.max(...others.map(o => o.pts));
+        const bestOtherMax = Math.max(...others.map(o => {
+          const oAll = seasonMatches.filter(m => m.home_club_id === o.id || m.away_club_id === o.id);
+          const oRem = oAll.length > 0 ? oAll.filter(m => m.status !== 'played' || m.home_goals === null).length : rem;
+          return o.pts + oRem * 3;
+        }));
+        if((season?.status === 'archived' && rows[0]?.id === clubId) || (gameRecords.length > 0 && myRow.pts > bestOtherMax)){
+          achieved = true;
+          current = 1;
+        } else if(myMax < bestOtherCur || (season?.status === 'archived' && rows[0]?.id !== clubId)){
+          failed = true;
+          current = 0;
+        }
+      }
+      break;
+    }
+  }
+
+  return {
+    current,
+    target,
+    achieved,
+    failed: !achieved && failed,
+    extraNote
+  };
+}
+
+function renderClubSponsorsHtml(clubId, compact = false){
+  if(!season) return '';
+  const chosenIds = getClubSeasonSponsorIds(clubId, season.id);
+  const rowsCache = statsRows();
+  if(!chosenIds.length){
+    return `<div class="sub" style="padding:10px;border-radius:11px;background:rgba(5,9,19,0.65);border:1px dashed rgba(255,255,255,0.12)">Nenhum patrocinador assinado nesta temporada (0/2).</div>`;
+  }
+  const locked = isSeasonStarted();
+  return chosenIds.map(spId => {
+    const sp = sponsors.find(s => s.id === spId);
+    if(!sp) return '';
+    const goals = getSponsorGoals(sp);
+    const goalBonus = Math.round((Number(sp.bonus_amount) || 0) / 2);
+    return `<div class="club-sponsor-slot">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px">
+        <div style="display:flex;align-items:center;gap:8px;min-width:0">
+          ${sp.logo_url ? `<img src="${esc(sp.logo_url)}" alt="${esc(sp.name)}" style="width:30px;height:30px;object-fit:contain;border-radius:7px;background:rgba(255,255,255,0.05);padding:2px" onerror="this.style.display='none'">` : ''}
+          <div style="min-width:0"><b style="font-size:13px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(sp.name)}</b><span class="sub">${esc(sp.tier || 'Patrocinador Oficial')}</span></div>
+        </div>
+        ${!locked && canManageClub(clubId) && !compact ? `<button class="btn danger sm" onclick="unsignClubSponsor('${clubId}','${sp.id}')">Distratar</button>` : ''}
+      </div>
+      <div class="mission-list">
+        ${goals.map((g, idx) => {
+          const ev = evaluateSponsorMission(g, clubId, rowsCache);
+          const pct = Math.min(100, Math.round((ev.current / Math.max(1, ev.target)) * 100));
+          const stateCls = ev.achieved ? 'achieved' : (ev.failed ? 'failed' : '');
+          const badgeHtml = ev.achieved
+            ? `<span class="status-achieved">✅ Meta Alcançada</span>`
+            : (ev.failed ? `<span class="status-failed">❌ Meta Fracassada</span>` : `<span class="status-progress">${ev.current}/${ev.target}</span>`);
+          return `<div class="mission-box ${stateCls}">
+            <div class="mission-top">
+              <span class="mission-name">${idx + 1}. ${esc(g.name)}</span>
+              ${badgeHtml}
+            </div>
+            <div class="mission-desc">${esc(g.desc)}${ev.extraNote ? ` • <b>${esc(ev.extraNote)}</b>` : ''}</div>
+            <div class="mission-prog-row">
+              <div class="mission-bar"><div class="mission-bar-fill" style="width:${ev.achieved ? 100 : pct}%"></div></div>
+              <span class="accent" style="font-size:10px;font-weight:800">+${money(goalBonus)}</span>
+            </div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+async function signClubSponsor(clubId, sponsorId){
+  if(!season) return toast('Crie uma temporada antes de assinar patrocínio.');
+  if(isSeasonStarted()) return toast('A temporada já começou! Os contratos de patrocínio só podem ser escolhidos antes do 1º jogo.');
+  if(!canManageClub(clubId)) return toast('Você não tem permissão para gerenciar os patrocínios deste clube.');
+  const current = getClubSeasonSponsorIds(clubId, season.id);
+  if(current.includes(sponsorId)) return toast('Este patrocinador já está assinado com o clube.');
+  if(current.length >= 2) return toast('Limite máximo de 2 patrocinadores por clube atingido.');
+  const club = clubs.find(c => c.id === clubId);
+  const sp = sponsors.find(s => s.id === sponsorId);
+  if(!club || !sp) return;
+  const desc = `Contrato de Patrocínio: ${sp.name} [SPONSOR_SIGN:${season.id}:${clubId}:${sponsorId}]`;
+  const { error } = await sb.from('ledger_entries').insert({
+    league_id: league.id, season_id: season.id, club_id: clubId, entry_type: 'income', amount: 0, description: desc
+  });
+  if(error) return toast('Erro ao assinar patrocínio: ' + error.message);
+  try {
+    await sb.from('league_news').insert({
+      league_id: league.id, category: 'PATROCÍNIO',
+      title: `🤝 ${club.name} fechou com ${sp.name}!`,
+      body: `${club.name} assinou contrato de patrocínio com ${sp.name} (${current.length + 1}/2) valendo até ${money(sp.bonus_amount)} em metas.`
+    });
+  } catch(_) {}
+  toast(`Patrocínio com ${sp.name} assinado!`);
+  await loadAll();
+}
+
+async function unsignClubSponsor(clubId, sponsorId){
+  if(!season) return;
+  if(isSeasonStarted()) return toast('Não é possível cancelar patrocínio após o início da temporada.');
+  if(!canManageClub(clubId)) return toast('Sem permissão.');
+  const sp = sponsors.find(s => s.id === sponsorId);
+  const desc = `Distrato de Patrocínio: ${sp?.name || ''} [SPONSOR_UNSIGN:${season.id}:${clubId}:${sponsorId}]`;
+  const { error } = await sb.from('ledger_entries').insert({
+    league_id: league.id, season_id: season.id, club_id: clubId, entry_type: 'expense', amount: 0, description: desc
+  });
+  if(error) return toast(error.message);
+  toast('Contrato cancelado.');
+  await loadAll();
+}
+
+async function processSponsorPayouts(){
+  if(!league || !season || !clubs.length || !sponsors.length) return;
+  return runLocked('sponsor-payouts', async () => {
+    const rowsCache = statsRows();
+    let paidAny = false;
+    for(const c of clubs){
+      if(!canManageClub(c.id)) continue;
+      const chosenIds = getClubSeasonSponsorIds(c.id, season.id);
+      for(const spId of chosenIds){
+        const sp = sponsors.find(s => s.id === spId);
+        if(!sp) continue;
+        const totalBonus = Number(sp.bonus_amount) || 0;
+        if(totalBonus <= 0) continue;
+        const goals = getSponsorGoals(sp);
+        for(let idx = 0; idx < goals.length; idx++){
+          const g = goals[idx];
+          const ev = evaluateSponsorMission(g, c.id, rowsCache);
+          if(!ev.achieved) continue;
+          const payoutKey = `[SPONSOR_PAYOUT:${season.id}:${c.id}:${sp.id}:${idx}]`;
+          if(paidSponsorCache.has(payoutKey)) continue;
+          if(ledger.some(l => String(l.description || '').includes(payoutKey))){
+            paidSponsorCache.add(payoutKey);
+            continue;
+          }
+          const payoutVal = idx === 0 ? Math.floor(totalBonus / 2) : (totalBonus - Math.floor(totalBonus / 2));
+          if(payoutVal <= 0) continue;
+          paidSponsorCache.add(payoutKey);
+          const desc = `Bônus Patrocínio (${sp.name} — ${g.name}) ${payoutKey}`;
+          const { error } = await sb.rpc('post_ledger_entry', {
+            p_league_id: league.id, p_season_id: season.id, p_club_id: c.id,
+            p_type: 'income', p_amount: payoutVal, p_description: desc
+          });
+          if(!error){
+            paidAny = true;
+            try {
+              await sb.from('league_news').insert({
+                league_id: league.id, category: 'PATROCÍNIO',
+                title: `💰 Meta Alcançada! ${c.name} +${money(payoutVal)}`,
+                body: `${c.name} cumpriu a meta "${g.name}" do patrocinador ${sp.name} e recebeu ${money(payoutVal)} no caixa!`
+              });
+            } catch(_) {}
+          } else {
+            paidSponsorCache.delete(payoutKey);
+          }
+        }
+      }
+    }
+    if(paidAny){
+      toast('💰 Bônus de meta de patrocinador depositado no caixa!');
+      await loadAll();
+    }
+  });
+}
+
+function populateSponsorGoalSelects(){
+  const opts = SPONSOR_MISSIONS.map(m => `<option value="${m.id}">#${m.num} ${esc(m.name)} — ${esc(m.desc)}</option>`).join('');
+  if($('spGoal1')) $('spGoal1').innerHTML = opts;
+  if($('spGoal2')) $('spGoal2').innerHTML = opts;
+}
+
+function randomizeSponsorGoals(){
+  populateSponsorGoalSelects();
+  const idx1 = Math.floor(Math.random() * SPONSOR_MISSIONS.length);
+  let idx2 = Math.floor(Math.random() * (SPONSOR_MISSIONS.length - 1));
+  if(idx2 >= idx1) idx2++;
+  $('spGoal1').value = SPONSOR_MISSIONS[idx1].id;
+  $('spGoal2').value = SPONSOR_MISSIONS[idx2].id;
+  updateSponsorMissionsPreview();
+}
+
+function updateSponsorMissionsPreview(){
+  const g1 = SPONSOR_MISSIONS.find(x => x.id === $('spGoal1')?.value);
+  const g2 = SPONSOR_MISSIONS.find(x => x.id === $('spGoal2')?.value);
+  const total = Number($('spBonus')?.value) || 0;
+  const half = Math.round(total / 2);
+  if($('spGoalsPreview')){
+    $('spGoalsPreview').innerHTML = `<div>• <b>${esc(g1?.name || '')}</b> (${money(half)}): ${esc(g1?.desc || '')}</div>`
+      + `<div style="margin-top:3px">• <b>${esc(g2?.name || '')}</b> (${money(half)}): ${esc(g2?.desc || '')}</div>`;
+  }
+}
+
+/* PATROCINADORES (ADM) */
+function updateSponsorLogoPreview(){
+  const box = $('spLogoPreview');
+  if(!box) return;
+  box.innerHTML = sponsorLogoHtml({ name: $('spName')?.value || 'PT', logo_url: $('spLogoUrl')?.value.trim() || null });
+}
+
+function handleSponsorPhotoFile(input){
+  const file = input.files?.[0];
+  if(!file) return;
+  if(!file.type.startsWith('image/')){ input.value = ''; return toast('Selecione um arquivo de imagem válido.'); }
+  if(file.size > 8 * 1024 * 1024){ input.value = ''; return toast('A imagem deve ter no máximo 8 MB.'); }
+  const reader = new FileReader();
+  reader.onload = e => {
+    const img = new Image();
+    img.onload = () => {
+      const maxSide = 440;
+      const scale = Math.min(1, maxSide / Math.max(img.width, img.height));
+      const canvas = document.createElement('canvas');
+      canvas.width = Math.max(1, Math.round(img.width * scale));
+      canvas.height = Math.max(1, Math.round(img.height * scale));
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      const dataUrl = canvas.toDataURL('image/webp', 0.85);
+      $('spLogoUrl').value = dataUrl.startsWith('data:image/webp') ? dataUrl : canvas.toDataURL('image/png');
+      updateSponsorLogoPreview();
+      toast('Logo do patrocinador carregada!');
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function openSponsorModal(sponsorId){
+  if(!isAdmin()) return toast('Apenas o ADM pode gerenciar patrocinadores.');
+  const s = sponsors.find(x => x.id === sponsorId);
+  populateSponsorGoalSelects();
+  $('editSponsorId').value = s?.id || '';
+  $('sponsorModalTitle').textContent = s ? 'Editar Patrocinador' : 'Novo Patrocinador';
+  $('spLogoFile').value = '';
+  $('spLogoUrl').value = s?.logo_url || '';
+  $('spName').value = s?.name || '';
+  $('spTier').value = s?.tier || 'Patrocinador Oficial';
+  $('spBonus').value = s?.bonus_amount ?? 500000;
+  $('spDesc').value = s ? cleanSponsorDesc(s) : '';
+  if(s){
+    const gs = getSponsorGoals(s);
+    $('spGoal1').value = gs[0].id;
+    $('spGoal2').value = gs[1].id;
+  } else {
+    randomizeSponsorGoals();
+  }
+  $('delSponsorBtn').classList.toggle('hidden', !s);
+  updateSponsorLogoPreview();
+  updateSponsorMissionsPreview();
+  openModal('sponsorModal');
+}
+
+async function saveSponsor(){
+  if(!isAdmin()) return toast('Apenas o ADM pode salvar patrocinadores.');
+  const id = $('editSponsorId').value;
+  const name = $('spName').value.trim();
+  const tier = $('spTier').value;
+  const bonus = Number($('spBonus').value) || 0;
+  const desc = $('spDesc').value.trim();
+  const logo = $('spLogoUrl').value.trim();
+  if(!name) return toast('Informe o nome do patrocinador.');
+  if(bonus < 0 || !Number.isFinite(bonus)) return toast('Informe um valor válido.');
+  if(logo && !/^https:\/\//i.test(logo) && !/^data:image\/(jpeg|png|webp);base64,/i.test(logo)) return toast('A logo deve usar um link HTTPS ou uma imagem válida.');
+
+  const g1 = $('spGoal1').value;
+  const g2 = $('spGoal2').value;
+  if(!g1 || !g2 || g1 === g2) return toast('Escolha 2 metas diferentes para o patrocinador.');
+  const encodedDesc = `${desc ? desc + ' ' : ''}[[GOALS:${g1},${g2}]]`.trim();
+  const payload = {
+    league_id: league.id,
+    name,
+    tier,
+    bonus_amount: bonus,
+    logo_url: logo || null,
+    description: encodedDesc
+  };
+  const { error } = id
+    ? await sb.from('league_sponsors').update(payload).eq('id', id)
+    : await sb.from('league_sponsors').insert(payload);
+  if(error) return toast('Erro ao salvar patrocinador: ' + error.message);
+  closeModal('sponsorModal');
+  toast('Patrocinador salvo com sucesso!');
+  await loadAll();
+}
+
+async function deleteSponsor(){
+  const id = $('editSponsorId').value;
+  if(id) await deleteSponsorById(id, true);
+}
+
+async function deleteSponsorById(id, fromModal = false){
+  if(!isAdmin()) return toast('Apenas o ADM pode excluir patrocinadores.');
+  if(!confirm('Excluir este patrocinador permanentemente?')) return;
+  const { error } = await sb.from('league_sponsors').delete().eq('id', id);
+  if(error) return toast('Não foi possível excluir: ' + error.message);
+  if(fromModal) closeModal('sponsorModal');
+  toast('Patrocinador excluído.');
+  await loadAll();
 }
 
 function updateClubLogoPreview(){
@@ -1971,6 +2884,10 @@ function openMatchModal(matchId){
   $('mRound').value = m?.round_number || 1;
   $('homeEventsList').innerHTML = '<div class="sub ev-empty-hint" style="font-size:11px">Toque em <b>+ ⚽ Gol</b> ou no <b>+</b> acima para registrar gols da casa.</div>';
   $('awayEventsList').innerHTML = '<div class="sub ev-empty-hint" style="font-size:11px">Toque em <b>+ ⚽ Gol</b> ou no <b>+</b> acima para registrar gols do visitante.</div>';
+  const flags = getMatchFlags(m?.id);
+  if($('mIsDerby')) $('mIsDerby').checked = !!flags.derby;
+  if($('mHomeComeback')) $('mHomeComeback').checked = !!flags.homeComeback;
+  if($('mAwayComeback')) $('mAwayComeback').checked = !!flags.awayComeback;
   updateScoreboardHeader();
   if(m){
     const hId = $('mHome').value;
@@ -2006,6 +2923,7 @@ function addSideEvent(side, type, existing = null, skipAutoScore = false){
         <div class="side-ev-field"><label>⚽ Autor do Gol</label><select class="ev-player" aria-label="Autor do gol">${playerOpts}</select></div>
         <div class="side-ev-field"><label>👟 Assistência</label><select class="ev-assist" aria-label="Assistência"><option value="">Sem assistência</option>${playerOpts}</select></div>
       </div>
+      <div class="side-ev-field"><label>⏱️ Momento do Gol (Opcional — p/ metas)</label><select class="ev-timing"><option value="normal">Normal (16' a 74')</option><option value="early">⚡ Gol Relâmpago (Antes dos 15')</option><option value="late">⏱️ Poder de Reação (Últimos 15')</option></select></div>
     `;
   } else {
     const label = type === 'yellow_card' ? '🟨 Cartão Amarelo' : '🟥 Cartão Vermelho';
@@ -2040,8 +2958,9 @@ function addSideEvent(side, type, existing = null, skipAutoScore = false){
       }
       assistSelect.value = existing.assist_player_id;
     }
+    const timingSelect = card.querySelector('.ev-timing');
+    if(timingSelect) timingSelect.value = getGoalTiming(existing);
   } else if(type === 'goal' && clubPlayers.length > 1){
-    // Evita deixar autor e assistência iguais se o usuário não mexer
     const assistSelect = card.querySelector('.ev-assist');
     if(assistSelect) assistSelect.value = '';
   }
@@ -2123,12 +3042,39 @@ async function saveMatchResult(){ return runLocked('match', async () => {
     const awayGoalsLogged = goalEvents.filter(e => e.club_id === a).length;
     if(homeGoalsLogged !== hg || awayGoalsLogged !== ag) return toast(`Você adicionou eventos de gol: confira se há ${hg} gol(s) do mandante e ${ag} do visitante (ou remova os eventos para lançar só o placar).`);
   }
+  const timingTokens = [];
+  ['home', 'away'].forEach(side => {
+    const container = side === 'home' ? $('homeEventsList') : $('awayEventsList');
+    container.querySelectorAll('.side-ev-card[data-type="goal"]').forEach(card => {
+      const pid = card.querySelector('.ev-player')?.value;
+      const t = card.querySelector('.ev-timing')?.value || 'normal';
+      if(pid && t !== 'normal') timingTokens.push(`${pid}:${t}`);
+    });
+  });
+  const isDerby = $('mIsDerby')?.checked ? '1' : '0';
+  const hCome = $('mHomeComeback')?.checked ? '1' : '0';
+  const aCome = $('mAwayComeback')?.checked ? '1' : '0';
+
   const { error } = await sb.rpc('record_match_with_events', {
     p_league_id: league.id, p_season_id: season.id, p_match_id: $('mEditId').value || null,
     p_home_club_id: h, p_away_club_id: a, p_home_goals: hg, p_away_goals: ag, p_round_number: rnd, p_events: evs
   });
   if(error) return toast(error.message);
-  closeModal('matchModal'); toast('Placar, estatísticas e financeiro atualizados!'); await loadAll();
+
+  // Persist optional derby / comeback / goal-timing metadata
+  const { data: latestMatches } = await sb.from('matches').select('id,home_club_id,away_club_id,round_number').eq('league_id', league.id).eq('season_id', season.id).eq('home_club_id', h).eq('away_club_id', a).eq('round_number', rnd).order('created_at', { ascending: false }).limit(1);
+  const savedMatchId = $('mEditId').value || latestMatches?.[0]?.id;
+  if(savedMatchId && (isDerby === '1' || hCome === '1' || aCome === '1' || timingTokens.length)){
+    try {
+      await sb.from('ledger_entries').delete().eq('league_id', league.id).ilike('description', `%[MATCH_FLAGS:${savedMatchId}:%`);
+      await sb.from('ledger_entries').insert({
+        league_id: league.id, season_id: season.id, club_id: h, entry_type: 'income', amount: 0,
+        description: `Dados da Partida [MATCH_FLAGS:${savedMatchId}:${isDerby}:${hCome}:${aCome}]` + (timingTokens.length ? ` [GOAL_TIMING:${savedMatchId}:${timingTokens.join(',')}]` : '')
+      });
+    } catch(_) {}
+  }
+
+  closeModal('matchModal'); toast('Placar, estatísticas e metas atualizados!'); await loadAll();
 }); }
 
 async function addLedger(){
