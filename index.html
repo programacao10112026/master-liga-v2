@@ -1490,7 +1490,7 @@ async function loadAll(){
   }
   if(q[0].data) league = q[0].data;
   seasons = q[1].data || [];
-  season = seasons.find(s => s.status === 'active') || seasons[0] || null;
+  season = seasons.find(s => s.status === 'active') || seasons.find(s => s.status !== 'archived') || seasons[0] || null;
   clubs = q[2].data || [];
   players = q[3].data || [];
   matches = q[4].data || [];
@@ -2379,10 +2379,9 @@ function getSponsorContractRate(clubId, sponsorId, seasonId){
 
 async function signClubSponsor(clubId, sponsorId){
   if(!season) return toast('Crie uma temporada antes de assinar patrocínio.');
-  // A assinatura é permitida enquanto a temporada ainda não tiver partidas disputadas.
-  // O status pode variar entre instalações (active, preseason etc.); o marco real
-  // de início é a primeira partida registrada. Temporadas arquivadas seguem bloqueadas.
-  if(season.status === 'archived' || isSeasonStarted()) return toast('Os contratos só podem ser escolhidos antes da primeira partida da temporada.');
+  // O bloqueio depende exclusivamente de partida efetivamente disputada nesta temporada.
+  // Jogos agendados e o rótulo/status da temporada não impedem a contratação.
+  if(isSeasonStarted()) return toast('Os contratos só podem ser escolhidos antes da primeira partida da temporada.');
   if(!canManageClub(clubId)) return toast('Você não tem permissão para gerenciar os patrocínios deste clube.');
   const current = getClubSeasonSponsorIds(clubId, season.id);
   if(current.includes(sponsorId)) return toast('Este patrocinador já está assinado com o clube.');
